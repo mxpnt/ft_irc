@@ -12,7 +12,6 @@ size_t Recv(char* buffer, size_t size, int socket) {
 void	wait_client(int server_socket)
 {
 	data	data;
-	// int		clients = 0;
 
 	data.pollVec.push_back(poll_init(server_socket));
 	while (1)
@@ -30,10 +29,8 @@ void	wait_client(int server_socket)
 				struct pollfd newPollfd;
 				newPollfd.fd = client_socket;
 				newPollfd.events = POLLIN;
-				// clients++;
 				data.pollVec.push_back(newPollfd);
 			}
-			// std::cout << data.pollVec.size();
 			std::vector<struct pollfd>::iterator it = data.pollVec.begin();
 			it++;
 			while (it != data.pollVec.end())
