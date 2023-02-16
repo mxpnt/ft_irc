@@ -2,7 +2,7 @@
 
 size_t Recv(char* buffer, size_t size, int socket) {
     size_t total = 0, n = 0;
-    while((n = recv(socket, buffer+total, size-total-1, 0)) > 0) {
+    if ((n = recv(socket, buffer+total, size-total-1, 0)) > 0) {
         total += n;
     }
     buffer[total] = 0;
@@ -38,24 +38,11 @@ void	wait_client(int server_socket)
 			it++;
 			while (it != data.pollVec.end())
 			{
-				// char	buff[10000];
-
-				// Recv(buff, sizeof(buff), (*it).fd);
-				// std::cout << buff;
 				if ((*it).fd > 0 && (*it).revents & POLLIN)
 				{
 					char	buff[10000];
-					
-					if (recv((*it).fd, buff, sizeof(buff), 0) < 1)
-					{
-						(*it).fd = 0;
-						(*it).events = 0;
-						(*it).revents = 0;
-					}
-					else
-					{
-						std::cout << buff;
-					}
+					Recv(buff, sizeof(buff), (*it).fd);
+					std::cout << buff;
 				}
 				it++;
 			}
