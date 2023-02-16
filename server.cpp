@@ -31,11 +31,11 @@ int	create_server(int port, std::string password)
 	return (listen_sd);
 }
 
-struct pollfd	popoll(int server)
+struct pollfd	poll_init(int server_socket)
 {
 	struct pollfd pollfds;
 
-	pollfds.fd = server;
+	pollfds.fd = server_socket;
 	pollfds.events = POLLIN;
 	return (pollfds);
 }

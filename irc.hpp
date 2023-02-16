@@ -18,14 +18,17 @@
 
 /***** server.cpp *****/
 int				create_server(int port, std::string password);
-struct pollfd	popoll(int server);
+struct pollfd	poll_init(int server_socket);
+
+/***** client.cpp *****/
+void			wait_client(int server_socket);
 
 /***** is_number.cpp *****/
 int				is_number(std::string str);
 
 typedef struct s_data 
 {
-	std::vector<struct pollfd> popol;
+	std::vector<struct pollfd> pollVec;
 } data;
 
 #endif
