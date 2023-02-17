@@ -16,6 +16,8 @@
 # include <vector>
 # include <arpa/inet.h>
 
+# include "splitstringClass.hpp"
+
 /***** server.cpp *****/
 int				create_server(int port, std::string password);
 struct pollfd	poll_init(int server_socket);
@@ -25,6 +27,9 @@ void			wait_client(int server_socket);
 
 /***** is_number.cpp *****/
 int				is_number(std::string str);
+
+/***** msg.cpp *****/
+void			parsing_client_msg(char *str);
 
 typedef struct s_data 
 {

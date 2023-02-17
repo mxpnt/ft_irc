@@ -5,7 +5,9 @@ INC			=
 SRCS		=	main.cpp \
 				is_number.cpp \
 				server.cpp \
-				client.cpp
+				client.cpp \
+				msg.cpp \
+				splitstringClass.cpp
 
 OBJS		=	${addprefix objs/, ${SRCS:.cpp=.o}}
 

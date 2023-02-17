@@ -37,9 +37,10 @@ void	wait_client(int server_socket)
 			{
 				if ((*it).fd > 0 && (*it).revents & POLLIN)
 				{
-					char	buff[10000];
+					char	buff[512];
 					Recv(buff, sizeof(buff), (*it).fd);
 					std::cout << buff;
+					parsing_client_msg(buff);
 				}
 				it++;
 			}
