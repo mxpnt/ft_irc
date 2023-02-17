@@ -14,9 +14,11 @@
 # include <fcntl.h>
 # include <poll.h>
 # include <vector>
+# include <map>
 # include <arpa/inet.h>
 
 # include "splitstringClass.hpp"
+# include "commandsClass.hpp"
 
 /***** server.cpp *****/
 int				create_server(int port, std::string password);

@@ -2,11 +2,11 @@
 
 void	parsing_client_msg(char *str)
 {
-	SplitString					s(str);
-	std::vector<std::string>	msg = s.split(' ');
+	SplitString	s(str);
+	Commands	cmd(s);
 
-	for (size_t i = 0; i < msg.size(); ++i)
-		std::cout << i << " = "<< msg[i];
+	for (size_t i = 0; i < cmd.msg.size(); ++i)
+		std::cout << i << " = "<< cmd.msg[i];
 	
 	int	found;
 

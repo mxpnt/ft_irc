@@ -5,12 +5,15 @@
 
 class	Commands {
 private:
-	std::string cmd[4];
-	std::vector<std::string> msg;
+	std::map<std::string, void (Commands::*)(std::vector<std::string>)>	cmd;
+	std::vector<std::string>	msg;
+	std::string					name;
+
+	void	init_map();
 public:
 	Commands();
 	Commands(Commands const &f);
-	Commands(std::vector<std::string> vmsg);
+	Commands(SplitString s);
 	~Commands();
 
 	Commands &operator=(Commands const &rhs);
