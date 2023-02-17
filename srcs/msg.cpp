@@ -1,4 +1,4 @@
-#include "irc.hpp"
+#include "../incs/irc.hpp"
 
 void	parsing_client_msg(char *str)
 {
@@ -7,4 +7,8 @@ void	parsing_client_msg(char *str)
 
 	for (size_t i = 0; i < msg.size(); ++i)
 		std::cout << i << " = "<< msg[i];
+	
+	int	found;
+
+	found = msg[0].find("PASS ");
 }

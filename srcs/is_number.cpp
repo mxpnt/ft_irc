@@ -1,4 +1,4 @@
-#include "irc.hpp"
+#include "../incs/irc.hpp"
 
 int	is_number(std::string str)
 {

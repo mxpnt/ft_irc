@@ -1,4 +1,4 @@
-#include "irc.hpp"
+#include "../incs/irc.hpp"
 
 size_t Recv(char* buffer, size_t size, int socket) {
     size_t total = 0, n = 0;

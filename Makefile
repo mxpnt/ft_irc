@@ -1,15 +1,16 @@
 NAME		=	ircserv
 
-INC			=
+INC			=	incs/irc.hpp \
+				incs/splitstringClass.hpp
 
-SRCS		=	main.cpp \
+SRC			=	main.cpp \
 				is_number.cpp \
 				server.cpp \
 				client.cpp \
 				msg.cpp \
 				splitstringClass.cpp
 
-OBJS		=	${addprefix objs/, ${SRCS:.cpp=.o}}
+OBJS		=	${addprefix objs/, ${SRC:.cpp=.o}}
 
 CXX			=	clang++
 
@@ -17,7 +18,7 @@ CXXFLAGS	=	-Wall -Wextra -Werror -std=c++98
 
 all:			${NAME}
 
-objs/%.o:		%.cpp ${INC} Makefile
+objs/%.o:		srcs/%.cpp ${INC} Makefile
 				@mkdir -p ${dir $@}
 				${CXX} ${CXXFLAGS} -c $< -o $@
 
