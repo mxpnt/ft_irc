@@ -13,10 +13,11 @@ private:
 public:
 	Commands();
 	Commands(Commands const &f);
-	Commands(SplitString s);
+	Commands(std::string s);
 	~Commands();
 
-	Commands &operator=(Commands const &rhs);
+	Commands	&operator=(Commands const &rhs);
+	void*		cmd_match();
 };
 
 #endif

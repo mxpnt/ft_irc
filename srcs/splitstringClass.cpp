@@ -6,12 +6,12 @@ SplitString::SplitString()
 {
 }
 
-SplitString::SplitString(SplitString const &f)
+SplitString::SplitString(SplitString const &f): std::string(f.c_str())
 {
 	*this = f;
 }
 
-SplitString::SplitString(char *s): std::string(s)
+SplitString::SplitString(const char *s): std::string(s)
 {
 }
 

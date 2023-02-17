@@ -30,9 +30,6 @@ void			wait_client(int server_socket);
 /***** is_number.cpp *****/
 int				is_number(std::string str);
 
-/***** msg.cpp *****/
-void			parsing_client_msg(char *str);
-
 typedef struct s_data 
 {
 	std::vector<struct pollfd> pollVec;

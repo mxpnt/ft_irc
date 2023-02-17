@@ -1,18 +1,19 @@
 NAME		=	ircserv
 
 INC			=	incs/irc.hpp \
-				incs/splitstringClass.hpp
+				incs/splitstringClass.hpp \
+				incs/commandsClass.hpp
 
 SRC			=	main.cpp \
 				is_number.cpp \
 				server.cpp \
 				client.cpp \
-				msg.cpp \
-				splitstringClass.cpp
+				splitstringClass.cpp \
+				commandsClass.cpp
 
 OBJS		=	${addprefix objs/, ${SRC:.cpp=.o}}
 
-CXX			=	clang++
+CXX			=	c++
 
 CXXFLAGS	=	-Wall -Wextra -Werror -std=c++98
 

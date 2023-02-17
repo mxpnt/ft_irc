@@ -12,8 +12,9 @@ Commands::Commands(Commands const &f)
 	*this = f;
 }
 
-Commands::Commands(SplitString s)
+Commands::Commands(std::string str)
 {
+	SplitString	s(str.c_str());
 	this->msg = s.split(' ');
 	init_map();
 }
@@ -26,6 +27,9 @@ Commands::~Commands()
 
 Commands	&Commands::operator=(Commands const &rhs)
 {
+	this->cmd = rhs.cmd;
+	this->msg =rhs.msg;
+	this->name = rhs.name;
 	return (*this);
 }
 
@@ -33,8 +37,18 @@ Commands	&Commands::operator=(Commands const &rhs)
 
 void	Commands::init_map()
 {
-	this->cmd["USER"] = ;
-	this->cmd["NICK"] = ;
-	this->cmd["JOIN"] = ;
-	this->cmd["PRIVMSG"] = ;
+	this->cmd["USER"] = 0;
+	this->cmd["NICK"] = 0;
+	this->cmd["JOIN"] = 0;
+	this->cmd["PRIVMSG"] = 0;
+}
+
+void*	Commands::cmd_match()
+{
+	for (size_t i = 0; i < this->msg.size(); ++i)
+		std::cout << i << " = "<< this->msg[i] << std::endl;
+	
+	if (cmd.find(msg[0]) != cmd.end())
+		return(&cmd.find(msg[0])->second);
+	return (0);
 }

@@ -9,7 +9,7 @@ private:
 public:
 	SplitString();
 	SplitString(SplitString const &f);
-	SplitString(char *s);
+	SplitString(const char *s);
 	~SplitString();
 
 	SplitString	&operator=(SplitString const &rhs);

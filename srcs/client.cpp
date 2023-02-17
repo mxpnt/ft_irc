@@ -39,8 +39,9 @@ void	wait_client(int server_socket)
 				{
 					char	buff[512];
 					Recv(buff, sizeof(buff), (*it).fd);
-					std::cout << buff;
-					parsing_client_msg(buff);
+					std::cout << buff << std::endl;
+					Commands	c(buff);
+					c.cmd_match();
 				}
 				it++;
 			}
