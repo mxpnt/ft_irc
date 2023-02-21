@@ -46,6 +46,7 @@ void	wait_client(int server_socket)
 					std::cout << buff << std::endl;
 					Commands	c(buff);
 					c.cmd_match();
+					write((*it).fd, "ERR_PASSWDMISMATCH", 18);
 				}
 				it++;
 			}

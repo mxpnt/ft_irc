@@ -16,7 +16,7 @@ int	create_server(int port, std::string password)
 	server_addr.sin_family = AF_INET;
 	server_addr.sin_port = htons(port);
 	server_addr.sin_addr.s_addr = htonl(INADDR_ANY);
-	// rc = setsockopt(listen_sd, SOL_SOCKET, SO_REUSEADDR, (char*)&on, sizeof(on));
+	// pas le droit a fcntl
 	rc = fcntl(listen_sd, F_SETFL, O_NONBLOCK);
 	if (rc < 0)
 		perror("fcntl()");
