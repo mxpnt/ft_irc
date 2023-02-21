@@ -38,7 +38,11 @@ void	wait_client(int server_socket)
 				if ((*it).fd > 0 && (*it).revents & POLLIN)
 				{
 					char	buff[512];
-					Recv(buff, sizeof(buff), (*it).fd);
+					if (Recv(buff, sizeof(buff), (*it).fd) == 0)
+					{
+						data.pollVec.erase(it);
+						continue;
+					}
 					std::cout << buff << std::endl;
 					Commands	c(buff);
 					c.cmd_match();
