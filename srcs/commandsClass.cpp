@@ -46,7 +46,7 @@ void	Commands::init_map()
 void*	Commands::cmd_match()
 {
 	for (size_t i = 0; i < this->msg.size(); ++i)
-		std::cout << this->msg[i] << " "; 
+		std::cout << this->msg[i] << " ";
 	
 	if (cmd.find(msg[0]) != cmd.end())
 		return(&cmd.find(msg[0])->second);

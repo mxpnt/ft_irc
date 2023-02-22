@@ -43,9 +43,10 @@ void	wait_client(int server_socket)
 						data.pollVec.erase(it);
 						continue;
 					}
+					// std::cout << std::endl;
 					Commands	c(buff);
 					c.cmd_match();
-					write((*it).fd, "ERR_PASSWDMISMATCH", 18);
+					// write((*it).fd, "ERR_PASSWDMISMATCH", 18);
 				}
 				it++;
 			}
