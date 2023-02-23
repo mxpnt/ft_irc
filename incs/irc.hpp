@@ -19,6 +19,7 @@
 
 # include "splitstringClass.hpp"
 # include "commandsClass.hpp"
+# include "clientClass.hpp"
 
 /***** server.cpp *****/
 int				create_server(int port, std::string password);

@@ -1,17 +1,31 @@
 #include "../incs/irc.hpp"
 
-size_t Recv(char* buffer, size_t size, int socket) {
+size_t Recv(char* buffer, size_t size, int socket)
+{
     size_t total = 0, n = 0;
-    if ((n = recv(socket, buffer+total, size-total-1, 0)) > 0) {
+    if ((n = recv(socket, buffer + total, size - total - 1, 0)) > 0)
         total += n;
-    }
     buffer[total] = 0;
-    return total;
+    return (total);
+}
+
+void	new_client(int server_socket, data *data)
+{
+	struct sockaddr_in	client_addr;
+	int					c_addr_len = sizeof(client_addr);
+	int					client_socket = accept(server_socket, (struct sockaddr *)&client_addr, (socklen_t *)&c_addr_len);
+
+	std::cout << "accept success " << inet_ntoa(client_addr.sin_addr) << std::endl;
+	struct pollfd newPollfd;
+	newPollfd.fd = client_socket;
+	newPollfd.events = POLLIN;
+	data->pollVec.push_back(newPollfd);
 }
 
 void	wait_client(int server_socket)
 {
 	data	data;
+	int		i = 0;
 
 	data.pollVec.push_back(poll_init(server_socket));
 	while (1)
@@ -19,17 +33,8 @@ void	wait_client(int server_socket)
 		int	pollResult = poll(&data.pollVec[0], data.pollVec.size(), 1800);
 		if (pollResult > 0)
 		{
-			if (data.pollVec[0].revents & POLLIN)
-			{
-				struct sockaddr_in	client_addr;
-				int					c_addr_len = sizeof(client_addr);
-				int					client_socket = accept(server_socket, (struct sockaddr *)&client_addr, (socklen_t *)&c_addr_len);
-
-				std::cout << "accept success " << inet_ntoa(client_addr.sin_addr) << std::endl;
-				struct pollfd newPollfd;
-				newPollfd.fd = client_socket;
-				newPollfd.events = POLLIN;
-				data.pollVec.push_back(newPollfd);
+			if (data.pollVec[0].revents & POLLIN)	{
+				new_client(server_socket, &data);
 			}
 			std::vector<struct pollfd>::iterator it = data.pollVec.begin();
 			it++;
@@ -37,13 +42,14 @@ void	wait_client(int server_socket)
 			{
 				if ((*it).fd > 0 && (*it).revents & POLLIN)
 				{
+					if (i++ == 0)
+						break;
 					char	buff[512];
 					if (Recv(buff, sizeof(buff), (*it).fd) == 0)
 					{
 						data.pollVec.erase(it);
 						continue;
 					}
-					// std::cout << std::endl;
 					Commands	c(buff);
 					c.cmd_match();
 					// write((*it).fd, "ERR_PASSWDMISMATCH", 18);
