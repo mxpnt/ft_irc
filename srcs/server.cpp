@@ -2,6 +2,7 @@
 
 int	create_server(int port, std::string password)
 {
+	(void) password;
 	int	listen_sd;
 	int	bind_result;
 	int	listen_result;
@@ -26,16 +27,8 @@ int	create_server(int port, std::string password)
 	listen_result = listen(listen_sd, 5);
 	if (listen_result < 0)
 		perror("listen()");
+	if (rc < 0 || bind_result < 0 || listen_result < 0)
+		exit (-1);
 	std::cout << "Server start" << std::endl;
-	(void) password;
 	return (listen_sd);
-}
-
-struct pollfd	poll_init(int server_socket)
-{
-	struct pollfd pollfds;
-
-	pollfds.fd = server_socket;
-	pollfds.events = POLLIN;
-	return (pollfds);
 }

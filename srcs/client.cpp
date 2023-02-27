@@ -9,6 +9,16 @@ size_t Recv(char* buffer, size_t size, int socket)
     return (total);
 }
 
+struct pollfd	poll_init(int socket)
+{
+	struct pollfd pollfds;
+
+	pollfds.fd = socket;
+	pollfds.events = POLLIN;
+	pollfds.revents = POLLIN;
+	return (pollfds);
+}
+
 void	new_client(int server_socket, data *data)
 {
 	struct sockaddr_in	client_addr;
@@ -16,14 +26,12 @@ void	new_client(int server_socket, data *data)
 	int					client_socket = accept(server_socket, (struct sockaddr *)&client_addr, (socklen_t *)&c_addr_len);
 
 	std::cout << "accept success " << inet_ntoa(client_addr.sin_addr) << std::endl;
-	struct pollfd newPollfd;
-	newPollfd.fd = client_socket;
-	newPollfd.events = POLLIN;
-	data->pollVec.push_back(newPollfd);
+	data->pollVec.push_back(poll_init(client_socket));
 }
 
 void	wait_client(int server_socket)
 {
+	std::vector<Client*>	repertory;
 	data	data;
 	int		i = 0;
 
@@ -59,4 +67,3 @@ void	wait_client(int server_socket)
 		}
 	}
 }
-

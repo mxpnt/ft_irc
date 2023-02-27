@@ -5,11 +5,14 @@
 
 class	Client	{
 private:
-	std::string	user;
-	std::string	nick;
+	struct pollfd	pofd;
+	std::string		user;
+	std::string		nick;
 	bool		connected;
+
 public:
 	Client();
+	Client(struct pollfd pollfd);
 	Client(Client const &f);
 	~Client();
 

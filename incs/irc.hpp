@@ -23,7 +23,6 @@
 
 /***** server.cpp *****/
 int				create_server(int port, std::string password);
-struct pollfd	poll_init(int server_socket);
 
 /***** client.cpp *****/
 void			wait_client(int server_socket);
