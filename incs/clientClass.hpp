@@ -7,6 +7,8 @@ class	Client	{
 private:
 	std::string		user;
 	std::string		nick;
+	std::string		realname;
+	int				id;
 	bool		connected;
 
 	struct pollfd*	addr_pollfd;
@@ -17,6 +19,16 @@ public:
 	~Client();
 
 	Client	&operator=(Client const &rhs);
+
+	void	setID(int i);
+	void	setUser(std::string u);
+	void	setNick(std::string n);
+	void	setRealname(std::string rn);
+
+	std::string	getUser() const;
+	std::string	getNick() const;
+	std::string	getRealname() const;
+	int			getID() const;
 
 	struct pollfd*	get_pollfd();
 	static std::vector<struct pollfd> get_polltab();
