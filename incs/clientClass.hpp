@@ -9,12 +9,11 @@ private:
 	std::string		nick;
 	std::string		realname;
 	int				id;
+	int				fd;
 	bool		connected;
 
-	struct pollfd*	addr_pollfd;
-
 public:
-	Client(std::list<struct pollfd> tab_pollfd, int socket);
+	Client(std::vector<struct pollfd> &tab_pollfd, int socket);
 	Client(Client const &f);
 	~Client();
 
@@ -29,9 +28,7 @@ public:
 	std::string	getNick() const;
 	std::string	getRealname() const;
 	int			getID() const;
-
-	struct pollfd*	get_pollfd();
-	static std::vector<struct pollfd> get_polltab();
+	int	get_fd();
 };
 
 #endif

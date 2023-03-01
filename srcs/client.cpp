@@ -9,7 +9,7 @@ size_t Recv(char* buffer, size_t size, int socket)
     return (total);
 }
 
-void	new_client(int server_socket, std::list<struct pollfd> tab_pollfd, std::vector<Client*> &repertory)
+void	new_client(int server_socket, std::vector<struct pollfd> &tab_pollfd, std::vector<Client*> &repertory)
 {
 	struct sockaddr_in	client_addr;
 	int					c_addr_len = sizeof(client_addr);
@@ -19,51 +19,60 @@ void	new_client(int server_socket, std::list<struct pollfd> tab_pollfd, std::vec
 	repertory.push_back(new Client(tab_pollfd, client_socket));
 }
 
+void	delete_client(std::vector<Client*>& repertory, int fd)
+{
+	std::vector<Client*>::iterator	it = repertory.begin();
+
+	while (it != repertory.end())
+	{
+		if ((*it)->get_fd() == fd)
+		{
+			delete *it;
+			repertory.erase(it);
+			return ;
+		}
+		it++;
+	}
+	std::cout << "delete_client() error: client fd not found" << std::endl;
+}
+
 void	wait_client(int server_socket)
 {
 	std::vector<Client*>		repertory;
-	std::vector<Client*>::iterator vit;
-	std::list<struct pollfd>	tab_pollfd;
-	std::list<struct pollfd>::iterator lit;
+	std::vector<struct pollfd>	tab_pollfd;
+	std::vector<struct pollfd>::iterator it;
 
 	int		i = 0;
 
 	repertory.push_back(new Client(tab_pollfd, server_socket));
 	while (1)
 	{
-		int	pollResult = poll(&tab_pollfd.front(), tab_pollfd.size(), 1800);
+		int	pollResult = poll(&tab_pollfd[0], tab_pollfd.size(), 1800);
 		if (pollResult > 0)
 		{
-			if (repertory[0]->get_pollfd()->revents & POLLIN)	{
+			if (tab_pollfd[0].revents & POLLIN)	{
 				new_client(server_socket, tab_pollfd, repertory);
 			}
 
-			vit = repertory.begin();
-			lit = tab_pollfd.begin();
-			vit++;
-			lit++;
-			while (vit != repertory.end())
+			it = tab_pollfd.begin();
+			it++;
+			while (it != tab_pollfd.end())
 			{
-				if ((*vit)->get_pollfd()->fd > 0 && (*vit)->get_pollfd()->revents & POLLIN)
+				if ((*it).fd > 0 && (*it).revents & POLLIN)
 				{
 					if (i++ == 0)
 						break;
 					char	buff[512];
-					if (Recv(buff, sizeof(buff), (*vit)->get_pollfd()->fd) == 0)
+					if (Recv(buff, sizeof(buff), (*it).fd) == 0)
 					{
-						std::cout << "bye" << std::endl;
-						delete *vit;
-						repertory.erase(vit);
-						tab_pollfd.erase(lit);
+						delete_client(repertory, (*it).fd);
+						tab_pollfd.erase(it);
 						continue;
 					}
 					std::cout << buff;
-					//Commands	c(buff);
-					//c.cmd_match();
-					// write((*it).fd, "ERR_PASSWDMISMATCH", 18);
+					command_manage(repertory, (*it).fd, buff);
 				}
-				vit++;
-				lit++;
+				it++;
 			}
 		}
 	}

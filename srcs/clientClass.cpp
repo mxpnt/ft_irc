@@ -2,10 +2,14 @@
 
 /***** CONSTRUCTORS AND DESTRUCTOR *****/
 
-Client::Client(std::list<struct pollfd> tab_pollfd, int socket)
+Client::Client(std::vector<struct pollfd> &tab_pollfd, int socket)
 {
-	tab_pollfd.push_back({socket, POLLIN, POLLIN});
-	this->addr_pollfd = &tab_pollfd.back();
+	tab_pollfd.resize(tab_pollfd.size() + 1);
+	tab_pollfd.back().fd = socket;
+	tab_pollfd.back().events = POLLIN;
+	tab_pollfd.back().revents = 0;
+	
+	this->fd = socket;
 }
 
 Client::Client(Client const &f)
@@ -15,11 +19,6 @@ Client::Client(Client const &f)
 
 Client::~Client()
 {
-}
-
-struct pollfd*	Client::get_pollfd()
-{
-	return (this->addr_pollfd);
 }
 
 /***** OPERATORS *****/
@@ -73,4 +72,9 @@ std::string	Client::getRealname() const
 int	Client::getID() const
 {
 	return (this->id);
+}
+
+int	Client::get_fd()
+{
+	return (this->fd);
 }

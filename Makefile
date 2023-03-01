@@ -9,6 +9,7 @@ SRC			=	main.cpp \
 				is_number.cpp \
 				server.cpp \
 				client.cpp \
+				command_manage.cpp \
 				splitstringClass.cpp \
 				commandsClass.cpp \
 				clientClass.cpp
