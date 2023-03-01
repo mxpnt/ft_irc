@@ -21,6 +21,7 @@ public:
 
 	void*	cmd_match();
 	void	cmd_user(Client *client);
+	int		cmd_nick(Client *client);
 };
 
 #endif

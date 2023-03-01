@@ -2,14 +2,16 @@ NAME		=	ircserv
 
 INC			=	incs/irc.hpp \
 				incs/splitstringClass.hpp \
-				incs/commandsClass.hpp
+				incs/commandsClass.hpp \
+				incs/clientClass.hpp
 
 SRC			=	main.cpp \
 				is_number.cpp \
 				server.cpp \
 				client.cpp \
 				splitstringClass.cpp \
-				commandsClass.cpp
+				commandsClass.cpp \
+				clientClass.cpp
 
 OBJS		=	${addprefix objs/, ${SRC:.cpp=.o}}
 

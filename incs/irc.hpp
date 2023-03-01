@@ -30,9 +30,11 @@ void			wait_client(int server_socket);
 /***** is_number.cpp *****/
 int				is_number(std::string str);
 
+class Client;
 typedef struct s_data 
 {
 	std::vector<struct pollfd> pollVec;
+	std::vector<Client> clientVec;
 } data;
 
 #endif
