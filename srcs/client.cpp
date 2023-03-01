@@ -9,60 +9,61 @@ size_t Recv(char* buffer, size_t size, int socket)
     return (total);
 }
 
-struct pollfd	poll_init(int socket)
-{
-	struct pollfd pollfds;
-
-	pollfds.fd = socket;
-	pollfds.events = POLLIN;
-	pollfds.revents = POLLIN;
-	return (pollfds);
-}
-
-void	new_client(int server_socket, data *data)
+void	new_client(int server_socket, std::list<struct pollfd> tab_pollfd, std::vector<Client*> &repertory)
 {
 	struct sockaddr_in	client_addr;
 	int					c_addr_len = sizeof(client_addr);
 	int					client_socket = accept(server_socket, (struct sockaddr *)&client_addr, (socklen_t *)&c_addr_len);
 
 	std::cout << "accept success " << inet_ntoa(client_addr.sin_addr) << std::endl;
-	data->pollVec.push_back(poll_init(client_socket));
+	repertory.push_back(new Client(tab_pollfd, client_socket));
 }
 
 void	wait_client(int server_socket)
 {
-	std::vector<Client*>	repertory;
-	data	data;
+	std::vector<Client*>		repertory;
+	std::vector<Client*>::iterator vit;
+	std::list<struct pollfd>	tab_pollfd;
+	std::list<struct pollfd>::iterator lit;
+
 	int		i = 0;
 
-	data.pollVec.push_back(poll_init(server_socket));
+	repertory.push_back(new Client(tab_pollfd, server_socket));
 	while (1)
 	{
-		int	pollResult = poll(&data.pollVec[0], data.pollVec.size(), 1800);
+		int	pollResult = poll(&tab_pollfd.front(), tab_pollfd.size(), 1800);
 		if (pollResult > 0)
 		{
-			if (data.pollVec[0].revents & POLLIN)	{
-				new_client(server_socket, &data);
+			if (repertory[0]->get_pollfd()->revents & POLLIN)	{
+				new_client(server_socket, tab_pollfd, repertory);
 			}
-			std::vector<struct pollfd>::iterator it = data.pollVec.begin();
-			it++;
-			while (it != data.pollVec.end())
+
+			vit = repertory.begin();
+			lit = tab_pollfd.begin();
+			vit++;
+			lit++;
+			while (vit != repertory.end())
 			{
-				if ((*it).fd > 0 && (*it).revents & POLLIN)
+				if ((*vit)->get_pollfd()->fd > 0 && (*vit)->get_pollfd()->revents & POLLIN)
 				{
 					if (i++ == 0)
 						break;
 					char	buff[512];
-					if (Recv(buff, sizeof(buff), (*it).fd) == 0)
+					if (Recv(buff, sizeof(buff), (*vit)->get_pollfd()->fd) == 0)
 					{
-						data.pollVec.erase(it);
+						std::cout << "bye" << std::endl;
+						delete *vit;
+						repertory.erase(vit);
+						tab_pollfd.erase(lit);
 						continue;
 					}
-					Commands	c(buff);
-					c.cmd_match();
+					std::cout << buff;
+					//Commands	c(buff);
+					//c.cmd_match();
 					// write((*it).fd, "ERR_PASSWDMISMATCH", 18);
 				}
-				it++;
+				vit++;
+				lit++;
 			}
 		}
 	}

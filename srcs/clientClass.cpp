@@ -2,8 +2,10 @@
 
 /***** CONSTRUCTORS AND DESTRUCTOR *****/
 
-Client::Client()
+Client::Client(std::list<struct pollfd> tab_pollfd, int socket)
 {
+	tab_pollfd.push_back({socket, POLLIN, POLLIN});
+	this->addr_pollfd = &tab_pollfd.back();
 }
 
 Client::Client(Client const &f)
@@ -13,6 +15,11 @@ Client::Client(Client const &f)
 
 Client::~Client()
 {
+}
+
+struct pollfd*	Client::get_pollfd()
+{
+	return (this->addr_pollfd);
 }
 
 /***** OPERATORS *****/

@@ -5,18 +5,21 @@
 
 class	Client	{
 private:
-	struct pollfd	pofd;
 	std::string		user;
 	std::string		nick;
 	bool		connected;
 
+	struct pollfd*	addr_pollfd;
+
 public:
-	Client();
-	Client(struct pollfd pollfd);
+	Client(std::list<struct pollfd> tab_pollfd, int socket);
 	Client(Client const &f);
 	~Client();
 
 	Client	&operator=(Client const &rhs);
+
+	struct pollfd*	get_pollfd();
+	static std::vector<struct pollfd> get_polltab();
 };
 
 #endif
