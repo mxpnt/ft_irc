@@ -28,7 +28,9 @@ public:
 	std::string	getNick() const;
 	std::string	getRealname() const;
 	int			getID() const;
-	int	get_fd();
+	int			get_fd() const;
 };
+
+std::ostream &operator<<(std::ostream &os, Client const &obj);
 
 #endif

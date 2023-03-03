@@ -22,5 +22,8 @@ void command_manage(std::vector<Client*> repertory, int fd, char* buff)
 	
     author = find_client(repertory, fd);
     f = c.cmd_match();
-    (c.*f)(repertory, author);
+	std::cout << "OK\n";
+	if (f)
+    	(c.*f)(repertory, author);
+	// std::cout << buff;
 }
