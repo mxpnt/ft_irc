@@ -6,7 +6,7 @@
 class	Client;
 class	Commands;
 
-typedef void (Commands::*command_ptr)(std::vector<Client*>, Client&);
+typedef void (Commands::*command_ptr)(std::vector<Client*>&, Client*);
 
 class	Commands {
 private:

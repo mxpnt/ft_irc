@@ -1,10 +1,27 @@
 #include "../incs/irc.hpp"
 
+Client* find_client(std::vector<Client*> &repertory, int fd)
+{
+    std::vector<Client*>::iterator it = repertory.begin();
+
+    while(it != repertory.end())
+    {
+        if ((*it)->get_fd() == fd)
+            return ((*it));
+        it++;
+    }
+    std::cerr << "error find_client: client not found" << std::endl;
+    return (0);
+}
+
 void command_manage(std::vector<Client*> repertory, int fd, char* buff)
 {
-    (void) repertory;
     (void) fd;
     Commands	c(buff);
+    command_ptr f;
+    Client      *author;
 	
-    c.cmd_match();
+    author = find_client(repertory, fd);
+    f = c.cmd_match();
+    (c.*f)(repertory, author);
 }
