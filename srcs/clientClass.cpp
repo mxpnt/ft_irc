@@ -30,6 +30,12 @@ Client	&Client::operator=(Client const &rhs)
 	return (*this);
 }
 
+std::ostream &operator<<(std::ostream &os, Client const &obj)
+{
+	os << obj.getUser() << std::endl;
+	return (os);
+}
+
 /***** SETTERS *****/
 
 void	Client::setID(int i)
@@ -74,7 +80,7 @@ int	Client::getID() const
 	return (this->id);
 }
 
-int	Client::get_fd()
+int	Client::get_fd() const
 {
 	return (this->fd);
 }
