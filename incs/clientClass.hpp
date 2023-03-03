@@ -31,4 +31,6 @@ public:
 	int			get_fd() const;
 };
 
+std::ostream &operator<<(std::ostream &os, Client const &obj);
+
 #endif

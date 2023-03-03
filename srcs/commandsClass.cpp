@@ -45,51 +45,57 @@ void	Commands::init_map()
 
 command_ptr	Commands::cmd_match()
 {
-	for (size_t i = 0; i < this->msg.size(); ++i)
-		std::cout << this->msg[i];
-
-	if (cmd.find(msg[0]) != cmd.end())
-		return(cmd.find(msg[0])->second);
+	// for (size_t i = 0; i < this->msg.size(); ++i)
+	// 	std::cout << this->msg[i];
+	if (msg.size())
+	{
+		if (cmd.find(msg[0]) != cmd.end())
+			return(cmd.find(msg[0])->second);
+	}
 	return (0);
 }
 
-void	Commands::cmd_user(std::vector<Client*> repertory, Client &client)
+void	Commands::cmd_user(std::vector<Client*> &repertory, Client *client)
 {
-	if (client.getUser() != "")
+	(void) repertory;
+	if (client->getUser() != "")
 		std::cerr << "ERR_ALREADYREGISTERED" << std::endl;
 	else
 	{
 		int	len = msg.size();
-		if (len > 3 && msg[2] == "0" && msg[3] == "*")
+		if (len > 3)
 		{
-			client.setUser(msg[1]);
-			std::cout << client.getUser() << std::endl; // test
-			if (len > 4)
+			if (msg[2] == "0" && msg[3] == "*")
 			{
-				if (msg[4][0] == ':')
+				client->setUser(msg[1]);
+				if (len > 4)
 				{
-					std::string	realname;
-					realname.append(msg[4]);
-					for (int i = 5; i < len; ++i)
+					if (msg[4][0] == ':')
 					{
-						realname.append(" ");
-						realname.append(msg[i]);
+						std::string	realname;
+						realname.append(msg[4]);
+						for (int i = 5; i < len; ++i)
+						{
+							realname.append(" ");
+							realname.append(msg[i]);
+						}
+						realname.erase(realname.begin());
+						client->setRealname(realname);
 					}
-					realname.erase(realname.begin());
-					client.setRealname(realname);
-				}
-				else
-				{
-					/* choisir si ignorer apres 1 espace ou concatener */
-					client.setRealname(msg[4]);
+					else
+					{
+						/* choisir si ignorer apres 1 espace ou concatener */
+						client->setRealname(msg[4]);
+					}
 				}
 			}
 		}
 	}
 }
 
-void	Commands::cmd_nick(std::vector<Client*> repertory, Client &client)
+void	Commands::cmd_nick(std::vector<Client*> &repertory, Client *client)
 {
+	(void) repertory;
 	if (msg.size() < 2)
 	{
 		std::cerr << "ERR_NONICKNAMEGIVEN" << std::endl;
@@ -100,16 +106,15 @@ void	Commands::cmd_nick(std::vector<Client*> repertory, Client &client)
 	{
 		std::cerr << "ERR_NICKNAMEINUSE" << std::endl;
 	}
-	else if (msg[0] == client.getUser() && msg[1] == "NICK" && msg[2] == "DEJA UTILISE")
+	else if (msg[0] == client->getUser() && msg[1] == "NICK" && msg[2] == "DEJA UTILISE")
 	{
 		std::cerr << "ERR_NICKNAMEINUSE" << std::endl;
 	}
 	else
 	{
 		if (msg[0] == "NICK")
-			client.setNick(msg[1]);
-		else if (msg[0] == client.getNick() && msg[1] == "NICK")
-			client.setNick(msg[2]);
+			client->setNick(msg[1]);
+		else if (msg[0] == client->getNick() && msg[1] == "NICK")
+			client->setNick(msg[2]);
 	}
-	return (0);
 }

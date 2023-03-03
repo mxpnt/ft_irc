@@ -38,7 +38,7 @@ std::vector<std::string>	&SplitString::split(char delim)
 	size_t		i = 0;
 	while (i < work.length())
 	{
-		if (work[i] != delim)
+		if (work[i] != delim && work[i] != '\n')
 			buf += work[i];
 		else if (buf.length() > 0)
 		{
