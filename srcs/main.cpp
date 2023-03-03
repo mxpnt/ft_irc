@@ -17,7 +17,7 @@ int	main(int argc, char **argv)
 			std::cerr << "Port invalid" << std::endl;
 		return (2);
 	}
-	server_socket = create_server(port, argv[2]);
+	server_socket = create_server(port);
 	wait_client(server_socket);
 	return (0);
 }

@@ -1,8 +1,7 @@
 #include "../incs/irc.hpp"
 
-int	create_server(int port, std::string password)
+int	create_server(int port)
 {
-	(void) password;
 	int	listen_sd;
 	int	bind_result;
 	int	listen_result;

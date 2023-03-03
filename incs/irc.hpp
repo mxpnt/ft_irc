@@ -22,7 +22,7 @@
 # include "clientClass.hpp"
 
 /***** server.cpp *****/
-int				create_server(int port, std::string password);
+int				create_server(int port);
 
 /***** client.cpp *****/
 void			wait_client(int server_socket);
