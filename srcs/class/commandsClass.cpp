@@ -1,4 +1,4 @@
-#include "../incs/commandsClass.hpp"
+#include "../../incs/commandsClass.hpp"
 
 /***** CONSTRUCTORS AND DESTRUCTOR *****/
 

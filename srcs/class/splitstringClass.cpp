@@ -1,4 +1,4 @@
-#include "../incs/splitstringClass.hpp"
+#include "../../incs/splitstringClass.hpp"
 
 /***** CONSTRUCTORS AND DESTRUCTOR *****/
 

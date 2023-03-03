@@ -1,4 +1,4 @@
-#include "../incs/irc.hpp"
+#include "../../incs/irc.hpp"
 
 Client* find_client(std::vector<Client*> &repertory, int fd)
 {
@@ -22,7 +22,7 @@ void command_manage(std::vector<Client*> repertory, int fd, char* buff)
 	
     author = find_client(repertory, fd);
     f = c.cmd_match();
-	std::cout << "OK\n";
+	std::cout << buff;
 	if (f)
     	(c.*f)(repertory, author);
 	// std::cout << buff;

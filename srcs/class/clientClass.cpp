@@ -1,4 +1,4 @@
-#include "../incs/clientClass.hpp"
+#include "../../incs/clientClass.hpp"
 
 /***** CONSTRUCTORS AND DESTRUCTOR *****/
 

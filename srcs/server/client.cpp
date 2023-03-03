@@ -1,4 +1,4 @@
-#include "../incs/irc.hpp"
+#include "../../incs/irc.hpp"
 
 size_t Recv(char* buffer, size_t size, int socket)
 {
@@ -69,7 +69,6 @@ void	wait_client(int server_socket)
 						tab_pollfd.erase(it);
 						continue;
 					}
-					// std::cout << buff;
 					command_manage(repertory, (*it).fd, buff);
 				}
 				it++;
