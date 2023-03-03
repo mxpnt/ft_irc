@@ -16,7 +16,6 @@ Client* find_client(std::vector<Client*> &repertory, int fd)
 
 void command_manage(std::vector<Client*> repertory, int fd, char* buff)
 {
-    (void) fd;
     Commands	c(buff);
     command_ptr f;
     Client      *author;
