@@ -43,13 +43,13 @@ void	Commands::init_map()
 	this->cmd["PRIVMSG"] = 0;
 }
 
-void*	Commands::cmd_match()
+command_ptr	Commands::cmd_match()
 {
 	for (size_t i = 0; i < this->msg.size(); ++i)
 		std::cout << this->msg[i];
 
 	if (cmd.find(msg[0]) != cmd.end())
-		return(&cmd.find(msg[0])->second);
+		return(cmd.find(msg[0])->second);
 	return (0);
 }
 

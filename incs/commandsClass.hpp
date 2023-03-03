@@ -4,9 +4,13 @@
 # include "irc.hpp"
 
 class	Client;
+class	Commands;
+
+typedef void (Commands::*command_ptr)(std::vector<Client*>, Client&);
+
 class	Commands {
 private:
-	std::map<std::string, void (Commands::*)(std::vector<std::string>)>	cmd;
+	std::map<std::string, command_ptr>	cmd;
 	std::vector<std::string>	msg;
 	std::string					name;
 
@@ -19,7 +23,7 @@ public:
 
 	Commands	&operator=(Commands const &rhs);
 
-	void*	cmd_match();
+	command_ptr	cmd_match();
 	void	cmd_user(Client *client);
 	int		cmd_nick(Client *client);
 };
