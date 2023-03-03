@@ -7,7 +7,10 @@ INC			=	incs/irc.hpp \
 
 SRC			=	main.cpp
 
-COMMANDS	=	command_manage.cpp
+COMMANDS	=	command_manage.cpp \
+				pass_cmd.cpp \
+				user_cmd.cpp \
+				nick_cmd.cpp
 
 SERVER		= 	server.cpp \
 				client.cpp

@@ -10,6 +10,7 @@ Client::Client(std::vector<struct pollfd> &tab_pollfd, int socket)
 	tab_pollfd.back().revents = 0;
 	
 	this->fd = socket;
+	this->connected = 0;
 }
 
 Client::Client(Client const &f)
@@ -58,6 +59,11 @@ void	Client::setRealname(std::string rn)
 	this->realname = rn;
 }
 
+void	Client::set_connected(bool n)
+{
+	this->connected = n;
+}
+
 /***** GETTERS *****/
 
 std::string	Client::getUser() const
@@ -83,4 +89,9 @@ int	Client::getID() const
 int	Client::get_fd() const
 {
 	return (this->fd);
+}
+
+bool Client::get_connected() const
+{
+	return (this->connected);
 }

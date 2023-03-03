@@ -36,11 +36,12 @@ void	delete_client(std::vector<Client*>& repertory, int fd)
 	std::cout << "delete_client() error: client fd not found" << std::endl;
 }
 
-void	wait_client(int server_socket)
+void	wait_client(int server_socket, std::string server_password)
 {
 	std::vector<Client*>		repertory;
 	std::vector<struct pollfd>	tab_pollfd;
 	std::vector<struct pollfd>::iterator it;
+	int	code_error;
 
 	int		i = 0;
 
@@ -69,7 +70,7 @@ void	wait_client(int server_socket)
 						tab_pollfd.erase(it);
 						continue;
 					}
-					command_manage(repertory, (*it).fd, buff);
+					code_error = command_manage(repertory, (*it).fd, buff, server_password);
 				}
 				it++;
 			}

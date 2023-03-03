@@ -14,16 +14,17 @@ Client* find_client(std::vector<Client*> &repertory, int fd)
     return (0);
 }
 
-void command_manage(std::vector<Client*> repertory, int fd, char* buff)
+int command_manage(std::vector<Client*> repertory, int fd, char* buff, std::string server_password)
 {
-    Commands	c(buff);
+    Commands	c(buff, server_pasword);
     command_ptr f;
     Client      *author;
+    int         code_error = 0;
 	
     author = find_client(repertory, fd);
     f = c.cmd_match();
 	std::cout << buff;
 	if (f)
-    	(c.*f)(repertory, author);
-	// std::cout << buff;
+    	code_error = (c.*f)(repertory, author);
+    return (code_error);
 }
