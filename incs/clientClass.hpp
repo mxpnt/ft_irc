@@ -28,7 +28,7 @@ public:
 	std::string	getNick() const;
 	std::string	getRealname() const;
 	int			getID() const;
-	int	get_fd();
+	int			get_fd() const;
 };
 
 #endif

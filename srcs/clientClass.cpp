@@ -74,7 +74,7 @@ int	Client::getID() const
 	return (this->id);
 }
 
-int	Client::get_fd()
+int	Client::get_fd() const
 {
 	return (this->fd);
 }

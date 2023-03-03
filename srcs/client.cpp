@@ -69,7 +69,7 @@ void	wait_client(int server_socket)
 						tab_pollfd.erase(it);
 						continue;
 					}
-					std::cout << buff;
+					// std::cout << buff;
 					command_manage(repertory, (*it).fd, buff);
 				}
 				it++;

@@ -37,32 +37,39 @@ Commands	&Commands::operator=(Commands const &rhs)
 
 void	Commands::init_map()
 {
-	this->cmd["USER"] = 0;
+	this->cmd["USER"] = &Commands::cmd_user;
 	this->cmd["NICK"] = 0;
 	this->cmd["JOIN"] = 0;
 	this->cmd["PRIVMSG"] = 0;
 }
 
-void*	Commands::cmd_match()
+void (*Commands::)(std::vector<Client*>,int)	Commands::cmd_match(std::vector<Client*> client, int fd)
 {
 	for (size_t i = 0; i < this->msg.size(); ++i)
 		std::cout << this->msg[i];
 
+	(void) client, (void) fd;
 	if (cmd.find(msg[0]) != cmd.end())
-		return(&cmd.find(msg[0])->second);
+		return(&(cmd.find(msg[0])->second));
 	return (0);
 }
 
-void	Commands::cmd_user(Client *client)
+void	Commands::cmd_user(std::vector<Client*> client, int fd)
 {
-	if (client->getUser() != "")
+	std::vector<Client*>::iterator it = client.begin();
+	while (it != client.end() && (*it)->getID() != fd)
+		++it;
+	if (it == client.end())
+		return ;
+	if ((*it)->getUser() != "")
 		std::cerr << "ERR_ALREADYREGISTERED" << std::endl;
 	else
 	{
 		int	len = msg.size();
 		if (len > 3 && msg[2] == "0" && msg[3] == "*")
 		{
-			client->setUser(msg[1]);
+			(*it)->setUser(msg[1]);
+			std::cout << (*it)->getUser() << std::endl;
 			if (len > 4)
 			{
 				if (msg[4][0] == ':')
@@ -75,12 +82,12 @@ void	Commands::cmd_user(Client *client)
 						realname.append(msg[i]);
 					}
 					realname.erase(realname.begin());
-					client->setRealname(realname);
+					(*it)->setRealname(realname);
 				}
 				else
 				{
 					/* choisir si ignorer apres 1 espace ou concatener */
-					client->setRealname(msg[4]);
+					(*it)->setRealname(msg[4]);
 				}
 			}
 		}

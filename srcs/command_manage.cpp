@@ -2,9 +2,9 @@
 
 void command_manage(std::vector<Client*> repertory, int fd, char* buff)
 {
-    (void) repertory;
-    (void) fd;
     Commands	c(buff);
+	void (Commands::*f)(std::vector<Client*>,int);
 	
-    c.cmd_match();
+    f = c.cmd_match(repertory, fd);
+	f(repertory, fd);
 }
