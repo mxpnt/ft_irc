@@ -43,14 +43,22 @@ void	Commands::init_map()
 	this->cmd["PRIVMSG"] = 0;
 }
 
+<<<<<<< HEAD
 void (*Commands::)(std::vector<Client*>,int)	Commands::cmd_match(std::vector<Client*> client, int fd)
+=======
+command_ptr	Commands::cmd_match()
+>>>>>>> 2b58c3d8a39adf9cea7fdfc0edf0abadcf241108
 {
 	for (size_t i = 0; i < this->msg.size(); ++i)
 		std::cout << this->msg[i];
 
 	(void) client, (void) fd;
 	if (cmd.find(msg[0]) != cmd.end())
+<<<<<<< HEAD
 		return(&(cmd.find(msg[0])->second));
+=======
+		return(cmd.find(msg[0])->second);
+>>>>>>> 2b58c3d8a39adf9cea7fdfc0edf0abadcf241108
 	return (0);
 }
 
