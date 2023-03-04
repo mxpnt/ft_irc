@@ -12,12 +12,11 @@ Commands::Commands(Commands const &f)
 	*this = f;
 }
 
-Commands::Commands(std::string str, std::string server_password)
+Commands::Commands(std::string str)
 {
 	SplitString	s(str.c_str());
 	this->msg = s.split(' ');
 	
-	this->server_password = server_password;
 	init_map();
 }
 

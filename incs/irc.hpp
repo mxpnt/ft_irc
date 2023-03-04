@@ -28,7 +28,7 @@ int				create_server(int port);
 void			wait_client(int server_socket, std::string server_password);
 
 /***** command_manage.cpp *****/
-int            command_manage(std::vector<Client*> repertory, int fd, char* buff, std::string server_password);
+void            command_manage(std::vector<Client*> repertory, int fd, char* buff, std::string server_password);
 
 /***** is_number.cpp *****/
 int				is_number(std::string str);

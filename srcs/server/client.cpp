@@ -41,7 +41,6 @@ void	wait_client(int server_socket, std::string server_password)
 	std::vector<Client*>		repertory;
 	std::vector<struct pollfd>	tab_pollfd;
 	std::vector<struct pollfd>::iterator it;
-	int	code_error;
 
 	int		i = 0;
 
@@ -70,8 +69,17 @@ void	wait_client(int server_socket, std::string server_password)
 						tab_pollfd.erase(it);
 						continue;
 					}
-					code_error = command_manage(repertory, (*it).fd, buff, server_password);
-					(void) code_error;
+					try
+					{
+						command_manage(repertory, (*it).fd, buff, server_password);
+					}
+					catch (std::exception &e)
+					{
+						delete_client(repertory, (*it).fd);
+						tab_pollfd.erase(it);
+						continue;
+					}
+
 				}
 				it++;
 			}

@@ -10,7 +10,7 @@ Client::Client(std::vector<struct pollfd> &tab_pollfd, int socket)
 	tab_pollfd.back().revents = 0;
 	
 	this->fd = socket;
-	this->connected = 0;
+	this->registered = 0;
 }
 
 Client::Client(Client const &f)
@@ -37,12 +37,15 @@ std::ostream &operator<<(std::ostream &os, Client const &obj)
 	return (os);
 }
 
-/***** SETTERS *****/
-
-void	Client::setID(int i)
+std::string operator+(Client client, std::string str2)
 {
-	this->id = i;
+	std::string str;
+
+	str = (std::string)":" + client.getUser() + str2;
+	return (str);
 }
+
+/***** SETTERS *****/
 
 void	Client::setUser(std::string u)
 {
@@ -59,9 +62,14 @@ void	Client::setRealname(std::string rn)
 	this->realname = rn;
 }
 
-void	Client::set_connected(bool n)
+void	Client::set_registered(bool n)
 {
-	this->connected = n;
+	this->registered = n;
+}
+
+void	Client::set_server_password_sent(std::string password)
+{
+	this->server_password_sent = password;
 }
 
 /***** GETTERS *****/
@@ -81,17 +89,17 @@ std::string	Client::getRealname() const
 	return (this->realname);
 }
 
-int	Client::getID() const
-{
-	return (this->id);
-}
-
 int	Client::get_fd() const
 {
 	return (this->fd);
 }
 
-bool Client::get_connected() const
+bool Client::get_registered() const
 {
-	return (this->connected);
+	return (this->registered);
+}
+
+std::string	Client::get_server_password_sent() const
+{
+	return (this->server_password_sent);
 }

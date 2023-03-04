@@ -1,28 +1,23 @@
 #include "../../incs/commandsClass.hpp"
 
-int	Commands::cmd_nick(std::vector<Client*> &repertory, Client *client)
+void	Commands::cmd_nick(std::vector<Client*> &repertory, Client *client)
 {
 	(void) repertory;
+	int fd =client->get_fd();
+	std::string	str;
+	
 	if (msg.size() < 2)
 	{
 		std::cerr << "ERR_NONICKNAMEGIVEN" << std::endl;
-		return (1);
+		return ;
 	}
 	/* CHECK SI NICK DEJA UTILISE */
-	else if (msg[0] == "NICK" && msg[1] == "DEJA UTILISE")
+	if (msg[0] == "NICK" && msg[1] == "DEJA UTILISE")
 	{
 		std::cerr << "ERR_NICKNAMEINUSE" << std::endl;
+		return ;
 	}
-	else if (msg[0] == client->getUser() && msg[1] == "NICK" && msg[2] == "DEJA UTILISE")
-	{
-		std::cerr << "ERR_NICKNAMEINUSE" << std::endl;
-	}
-	else
-	{
-		if (msg[0] == "NICK")
-			client->setNick(msg[1]);
-		else if (msg[0] == client->getNick() && msg[1] == "NICK")
-			client->setNick(msg[2]);
-	}
-	return (0);
+	str = *client + (std::string)" NICK " + this->msg[1] + (std::string)"\n"; 
+	write(fd, str.c_str(), str.size());
+	client->setNick(msg[1]);
 }

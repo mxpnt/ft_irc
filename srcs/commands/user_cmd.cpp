@@ -1,10 +1,13 @@
 #include "../../incs/commandsClass.hpp"
 
-int	Commands::cmd_user(std::vector<Client*> &repertory, Client *client)
+void	Commands::cmd_user(std::vector<Client*> &repertory, Client *client)
 {
 	(void) repertory;
+	int	fd = client->get_fd();
+	std::string	str;
+
 	if (client->getUser() != "")
-		std::cerr << "ERR_ALREADYREGISTERED" << std::endl;
+		write(fd, "ERR_ALREADYREGISTERED", 21);
 	else
 	{
 		int	len = msg.size();
@@ -36,5 +39,5 @@ int	Commands::cmd_user(std::vector<Client*> &repertory, Client *client)
 			}
 		}
 	}
-	return (0);
+	return ;
 }
