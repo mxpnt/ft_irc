@@ -36,4 +36,5 @@ int	Commands::cmd_user(std::vector<Client*> &repertory, Client *client)
 			}
 		}
 	}
+	return (0);
 }

@@ -71,6 +71,7 @@ void	wait_client(int server_socket, std::string server_password)
 						continue;
 					}
 					code_error = command_manage(repertory, (*it).fd, buff, server_password);
+					(void) code_error;
 				}
 				it++;
 			}

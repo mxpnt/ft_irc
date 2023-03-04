@@ -6,7 +6,7 @@ int	Commands::cmd_nick(std::vector<Client*> &repertory, Client *client)
 	if (msg.size() < 2)
 	{
 		std::cerr << "ERR_NONICKNAMEGIVEN" << std::endl;
-		return;
+		return (1);
 	}
 	/* CHECK SI NICK DEJA UTILISE */
 	else if (msg[0] == "NICK" && msg[1] == "DEJA UTILISE")
@@ -24,4 +24,5 @@ int	Commands::cmd_nick(std::vector<Client*> &repertory, Client *client)
 		else if (msg[0] == client->getNick() && msg[1] == "NICK")
 			client->setNick(msg[2]);
 	}
+	return (0);
 }

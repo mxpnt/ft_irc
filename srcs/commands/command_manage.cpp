@@ -16,7 +16,7 @@ Client* find_client(std::vector<Client*> &repertory, int fd)
 
 int command_manage(std::vector<Client*> repertory, int fd, char* buff, std::string server_password)
 {
-    Commands	c(buff, server_pasword);
+    Commands	c(buff, server_password);
     command_ptr f;
     Client      *author;
     int         code_error = 0;
