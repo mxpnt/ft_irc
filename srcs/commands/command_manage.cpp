@@ -16,17 +16,15 @@ Client* find_client(std::vector<Client*> &repertory, int fd)
 
 void register_process(Client* client, std::string server_password)
 {
-    int fd = client->get_fd();
     std::string str;
 
     if (client->get_server_password_sent().compare(server_password))
     {
-        write(fd, "FAIL PASS ERR_PASSWDMISMATCH\n", 29);
-        write(fd, "ERROR :wrong password\n", 29);
+        client->numeric_reply("464", ":wrong password");
+        *client << "ERROR :wrong password\n";
         throw std::exception();
     }
-    str = client->getRealname() + (std::string)" :Welcome to the 42 Network, " + client->getNick() + (std::string)"\n";
-    write(fd, str.c_str(), str.size());
+    *client << client->getRealname() << " :Welcome to the 42 Network, " << client->getNick() << "\n";
 }
 
 void command_manage(std::vector<Client*> repertory, int fd, char* buff, std::string server_password)
@@ -42,7 +40,7 @@ void command_manage(std::vector<Client*> repertory, int fd, char* buff, std::str
         write(fd, "FAIL * NEED_REGISTRATION :You need to be registered to continue\n", 64);
         return ;
     }
-    std::cout << buff;
+    //std::cout << buff;
 	if (f)
         (c.*f)(repertory, author);
     if (!author->getRealname().empty() && !author->getNick().empty() && !author->get_server_password_sent().empty())

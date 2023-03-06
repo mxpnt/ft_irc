@@ -3,7 +3,6 @@
 void	Commands::cmd_nick(std::vector<Client*> &repertory, Client *client)
 {
 	(void) repertory;
-	int fd =client->get_fd();
 	std::string	str;
 	
 	if (msg.size() < 2)
@@ -17,7 +16,7 @@ void	Commands::cmd_nick(std::vector<Client*> &repertory, Client *client)
 		std::cerr << "ERR_NICKNAMEINUSE" << std::endl;
 		return ;
 	}
-	str = *client + (std::string)" NICK " + this->msg[1] + (std::string)"\n"; 
-	write(fd, str.c_str(), str.size());
+	if (client->get_registered())
+		client->reply(client, "NICK", "", this->msg[1]);
 	client->setNick(msg[1]);
 }

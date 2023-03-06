@@ -19,6 +19,9 @@ public:
 
 	Client	&operator=(Client const &rhs);
 
+	void	numeric_reply(std::string numeric, std::string description);
+	void	reply(Client* sender, std::string cmd, std::string dst, std::string description);
+
 	void	setUser(std::string u);
 	void	setNick(std::string n);
 	void	setRealname(std::string rn);
@@ -34,6 +37,6 @@ public:
 };
 
 std::ostream &operator<<(std::ostream &os, Client const &obj);
-std::string operator+(Client client, std::string str2);
+Client& operator<<(Client& client, std::string str);
 
 #endif

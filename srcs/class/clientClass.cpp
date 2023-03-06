@@ -9,6 +9,7 @@ Client::Client(std::vector<struct pollfd> &tab_pollfd, int socket)
 	tab_pollfd.back().events = POLLIN;
 	tab_pollfd.back().revents = 0;
 	
+	this->nick = "*";
 	this->fd = socket;
 	this->registered = 0;
 }
@@ -37,13 +38,27 @@ std::ostream &operator<<(std::ostream &os, Client const &obj)
 	return (os);
 }
 
-std::string operator+(Client client, std::string str2)
+Client& operator<<(Client& client, std::string str)
 {
-	std::string str;
-
-	str = (std::string)":" + client.getUser() + str2;
-	return (str);
+	write(client.get_fd(), str.c_str(), str.size());
+	return client;
 }
+
+/***** member *****/
+
+void    Client::numeric_reply(std::string numeric, std::string description)
+{
+    *this << ":irc.42 " << numeric << " " << this->nick << " " << description << "\n";
+}
+
+void	Client::reply(Client* sender, std::string cmd, std::string dst, std::string description)
+{
+	*this << ":" << sender->nick << "!" << sender->user << "@irc.42 " << cmd << " ";
+	if (!dst.empty())
+		*this << dst << " ";
+	*this << ":" << description << "\n";
+}
+//:sdsed!~shshs@46.231.218.157 NICK :oui
 
 /***** SETTERS *****/
 

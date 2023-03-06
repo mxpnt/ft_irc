@@ -43,6 +43,7 @@ void	Commands::init_map()
 	this->cmd["PASS"] = &Commands::cmd_pass;
 	this->cmd["JOIN"] = 0;
 	this->cmd["PRIVMSG"] = 0;
+	this->cmd["QUIT"] = 0;
 }
 
 command_ptr	Commands::cmd_match()

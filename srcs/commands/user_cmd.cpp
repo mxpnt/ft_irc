@@ -3,11 +3,9 @@
 void	Commands::cmd_user(std::vector<Client*> &repertory, Client *client)
 {
 	(void) repertory;
-	int	fd = client->get_fd();
-	std::string	str;
 
 	if (client->getUser() != "")
-		write(fd, "ERR_ALREADYREGISTERED", 21);
+		client->numeric_reply("462", ":already registered");
 	else
 	{
 		int	len = msg.size();
@@ -20,8 +18,7 @@ void	Commands::cmd_user(std::vector<Client*> &repertory, Client *client)
 				{
 					if (msg[4][0] == ':')
 					{
-						std::string	realname;
-						realname.append(msg[4]);
+						std::string	realname(msg[4]);
 						for (int i = 5; i < len; ++i)
 						{
 							realname.append(" ");
