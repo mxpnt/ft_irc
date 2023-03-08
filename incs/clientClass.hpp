@@ -9,11 +9,13 @@ private:
 	std::string		nick;
 	std::string		realname;
 	std::string		server_password_sent;
+	std::string		ip;
 	int				fd;
 	bool			registered;
 
 public:
 	Client(std::vector<struct pollfd> &tab_pollfd, int socket);
+	Client(std::vector<struct pollfd> &tab_pollfd, int socket, std::string ip);
 	Client(Client const &f);
 	~Client();
 
@@ -34,6 +36,7 @@ public:
 	int			get_fd() const;
 	bool		get_registered() const;
 	std::string	get_server_password_sent() const;
+	std::string get_ip() const;
 };
 
 std::ostream &operator<<(std::ostream &os, Client const &obj);

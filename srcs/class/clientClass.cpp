@@ -14,6 +14,19 @@ Client::Client(std::vector<struct pollfd> &tab_pollfd, int socket)
 	this->registered = 0;
 }
 
+Client::Client(std::vector<struct pollfd> &tab_pollfd, int socket, std::string ip)
+{
+	tab_pollfd.resize(tab_pollfd.size() + 1);
+	tab_pollfd.back().fd = socket;
+	tab_pollfd.back().events = POLLIN;
+	tab_pollfd.back().revents = 0;
+	
+	this->nick = "*";
+	this->ip = ip;
+	this->fd = socket;
+	this->registered = 0;
+}
+
 Client::Client(Client const &f)
 {
 	*this = f;
@@ -48,17 +61,17 @@ Client& operator<<(Client& client, std::string str)
 
 void    Client::numeric_reply(std::string numeric, std::string description)
 {
-    *this << ":irc.42 " << numeric << " " << this->nick << " " << description << "\n";
+    *this << ":" << SERVER_NAME << " " << numeric << " " << this->nick << " " << description << "\n";
 }
 
 void	Client::reply(Client* sender, std::string cmd, std::string dst, std::string description)
 {
-	*this << ":" << sender->nick << "!" << sender->user << "@irc.42 " << cmd << " ";
+	*this << ":" << sender->nick << "!" << sender->user << "@" << sender->ip << " " << cmd << " ";
 	if (!dst.empty())
 		*this << dst << " ";
 	*this << ":" << description << "\n";
 }
-//:sdsed!~shshs@46.231.218.157 NICK :oui
+//exemple :sdsed!~shshs@46.231.218.157 NICK :oui
 
 /***** SETTERS *****/
 
@@ -117,4 +130,9 @@ bool Client::get_registered() const
 std::string	Client::get_server_password_sent() const
 {
 	return (this->server_password_sent);
+}
+
+std::string Client::get_ip() const
+{
+	return (this->ip);
 }

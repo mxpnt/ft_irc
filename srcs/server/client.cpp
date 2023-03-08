@@ -14,9 +14,10 @@ void	new_client(int server_socket, std::vector<struct pollfd> &tab_pollfd, std::
 	struct sockaddr_in	client_addr;
 	int					c_addr_len = sizeof(client_addr);
 	int					client_socket = accept(server_socket, (struct sockaddr *)&client_addr, (socklen_t *)&c_addr_len);
+	std::string			client_ip = inet_ntoa(client_addr.sin_addr);
 
-	std::cout << "accept success " << inet_ntoa(client_addr.sin_addr) << std::endl;
-	repertory.push_back(new Client(tab_pollfd, client_socket));
+	std::cout << "accept success " << client_ip << std::endl;
+	repertory.push_back(new Client(tab_pollfd, client_socket, client_ip));
 }
 
 void	delete_client(std::vector<Client*>& repertory, int fd)

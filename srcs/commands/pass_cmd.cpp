@@ -3,16 +3,15 @@
 void		Commands::cmd_pass(std::vector<Client*> &repertory, Client *client)
 {
     (void) repertory;
-    int fd = client->get_fd();
 
     if (this->msg.size() < 2)
     {
-        write(fd, "FAIL PASS ERR_NEEDMOREPARAMS\n", 29);
+        client->numeric_reply("461", ":need more parameters");
         return ;
     }
     if (client->get_registered())
     {
-        write(fd, "FAIL PASS ERR_ALREADYREGISTERED", 31);
+        client->numeric_reply("462", ":already registered");
         return ;
     }
     client->set_server_password_sent(this->msg[1]);
