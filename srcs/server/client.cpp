@@ -46,6 +46,7 @@ void	wait_client(int server_socket, std::string server_password)
 	int		i = 0;
 
 	repertory.push_back(new Client(tab_pollfd, server_socket));
+	repertory[0]->set_server_password(server_password);
 	while (1)
 	{
 		int	pollResult = poll(&tab_pollfd[0], tab_pollfd.size(), 1800);
@@ -72,7 +73,7 @@ void	wait_client(int server_socket, std::string server_password)
 					}
 					try
 					{
-						command_manage(repertory, (*it).fd, buff, server_password);
+						command_manage(repertory, (*it).fd, buff);
 					}
 					catch (std::exception &e)
 					{

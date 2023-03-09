@@ -16,7 +16,7 @@ void	Commands::cmd_nick(std::vector<Client*> &repertory, Client *client)
 		std::cerr << "ERR_NICKNAMEINUSE" << std::endl;
 		return ;
 	}
-	if (client->get_registered())
+	if (client->registered)
 		client->reply(client, "NICK", "", this->msg[1]);
 	client->setNick(msg[1]);
 }

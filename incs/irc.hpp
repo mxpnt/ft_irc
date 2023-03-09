@@ -28,16 +28,19 @@
 # include "clientClass.hpp"
 
 /***** server.cpp *****/
-int				create_server(int port);
+int     create_server(int port);
 
 /***** client.cpp *****/
-void			wait_client(int server_socket, std::string server_password);
+void    wait_client(int server_socket, std::string server_password);
+
+/***** register.cpp *****/
+void    register_process(std::vector<Client*> repertory, Client* client);
 
 /***** command_manage.cpp *****/
-void            command_manage(std::vector<Client*> repertory, int fd, char* buff, std::string server_password);
+void    command_manage(std::vector<Client*> repertory, int fd, char* buff);
 
 /***** is_number.cpp *****/
-int				is_number(std::string str);
+int     is_number(std::string str);
 
 template < typename T > std::string to_string( const T& n )
 {

@@ -13,7 +13,8 @@ COMMANDS	=	command_manage.cpp \
 				nick_cmd.cpp
 
 SERVER		= 	server.cpp \
-				client.cpp
+				client.cpp \
+				register.cpp
 
 CLASS		=	splitstringClass.cpp \
 				commandsClass.cpp \
