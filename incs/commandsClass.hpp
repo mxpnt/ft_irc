@@ -26,6 +26,7 @@ public:
 	command_ptr	cmd_match();
 	void		cmd_user(std::vector<Client*> &repertory, Client *client);
 	void		cmd_nick(std::vector<Client*> &repertory, Client *client);
+	void		cmd_pass(std::vector<Client*> &repertory, Client *client);
 };
 
 #endif

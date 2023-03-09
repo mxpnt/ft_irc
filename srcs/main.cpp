@@ -18,6 +18,6 @@ int	main(int argc, char **argv)
 		return (2);
 	}
 	server_socket = create_server(port);
-	wait_client(server_socket);
+	wait_client(server_socket, argv[2]);
 	return (0);
 }

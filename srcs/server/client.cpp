@@ -1,4 +1,4 @@
-#include "../incs/irc.hpp"
+#include "../../incs/irc.hpp"
 
 size_t Recv(char* buffer, size_t size, int socket)
 {
@@ -14,9 +14,10 @@ void	new_client(int server_socket, std::vector<struct pollfd> &tab_pollfd, std::
 	struct sockaddr_in	client_addr;
 	int					c_addr_len = sizeof(client_addr);
 	int					client_socket = accept(server_socket, (struct sockaddr *)&client_addr, (socklen_t *)&c_addr_len);
+	std::string			client_ip = inet_ntoa(client_addr.sin_addr);
 
-	std::cout << "accept success " << inet_ntoa(client_addr.sin_addr) << std::endl;
-	repertory.push_back(new Client(tab_pollfd, client_socket));
+	std::cout << "accept success " << client_ip << std::endl;
+	repertory.push_back(new Client(tab_pollfd, client_socket, client_ip));
 }
 
 void	delete_client(std::vector<Client*>& repertory, int fd)
@@ -36,7 +37,7 @@ void	delete_client(std::vector<Client*>& repertory, int fd)
 	std::cout << "delete_client() error: client fd not found" << std::endl;
 }
 
-void	wait_client(int server_socket)
+void	wait_client(int server_socket, std::string server_password)
 {
 	std::vector<Client*>		repertory;
 	std::vector<struct pollfd>	tab_pollfd;
@@ -69,8 +70,17 @@ void	wait_client(int server_socket)
 						tab_pollfd.erase(it);
 						continue;
 					}
-					// std::cout << buff;
-					command_manage(repertory, (*it).fd, buff);
+					try
+					{
+						command_manage(repertory, (*it).fd, buff, server_password);
+					}
+					catch (std::exception &e)
+					{
+						delete_client(repertory, (*it).fd);
+						tab_pollfd.erase(it);
+						continue;
+					}
+
 				}
 				it++;
 			}

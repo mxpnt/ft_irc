@@ -1,4 +1,4 @@
-#include "../incs/irc.hpp"
+#include "../../incs/irc.hpp"
 
 int	create_server(int port)
 {

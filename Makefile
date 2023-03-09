@@ -5,16 +5,29 @@ INC			=	incs/irc.hpp \
 				incs/commandsClass.hpp \
 				incs/clientClass.hpp
 
-SRC			=	main.cpp \
-				is_number.cpp \
-				server.cpp \
-				client.cpp \
-				command_manage.cpp \
-				splitstringClass.cpp \
+SRC			=	main.cpp
+
+COMMANDS	=	command_manage.cpp \
+				pass_cmd.cpp \
+				user_cmd.cpp \
+				nick_cmd.cpp
+
+SERVER		= 	server.cpp \
+				client.cpp
+
+CLASS		=	splitstringClass.cpp \
 				commandsClass.cpp \
 				clientClass.cpp
 
-OBJS		=	${addprefix objs/, ${SRC:.cpp=.o}}
+UTILS		=	is_number.cpp
+
+SRCS		=	${SRC} \
+				${addprefix commands/, ${COMMANDS}} \
+				${addprefix server/, ${SERVER}} \
+				${addprefix class/, ${CLASS}} \
+				${addprefix utils/, ${UTILS}}
+
+OBJS		=	${addprefix objs/, ${SRCS:.cpp=.o}}
 
 CXX			=	c++
 
