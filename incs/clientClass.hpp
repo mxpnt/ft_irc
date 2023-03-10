@@ -27,16 +27,16 @@ public:
 	void	setUser(std::string u);
 	void	setNick(std::string n);
 	void	setRealname(std::string rn);
-	void	set_registered(bool n);
-	void	set_server_password_sent(std::string password);
+	void	setRegistered(bool n);
+	void	setServerPasswordSent(std::string password);
 
 	std::string	getUser() const;
 	std::string	getNick() const;
 	std::string	getRealname() const;
-	int			get_fd() const;
-	bool		get_registered() const;
-	std::string	get_server_password_sent() const;
-	std::string get_ip() const;
+	int			getFd() const;
+	bool		getRegistered() const;
+	std::string	getServerPasswordSent() const;
+	std::string getIp() const;
 };
 
 std::ostream &operator<<(std::ostream &os, Client const &obj);

@@ -53,7 +53,7 @@ std::ostream &operator<<(std::ostream &os, Client const &obj)
 
 Client& operator<<(Client& client, std::string str)
 {
-	write(client.get_fd(), str.c_str(), str.size());
+	write(client.getFd(), str.c_str(), str.size());
 	return client;
 }
 
@@ -90,12 +90,12 @@ void	Client::setRealname(std::string rn)
 	this->realname = rn;
 }
 
-void	Client::set_registered(bool n)
+void	Client::setRegistered(bool n)
 {
 	this->registered = n;
 }
 
-void	Client::set_server_password_sent(std::string password)
+void	Client::setServerPasswordSent(std::string password)
 {
 	this->server_password_sent = password;
 }
@@ -117,22 +117,22 @@ std::string	Client::getRealname() const
 	return (this->realname);
 }
 
-int	Client::get_fd() const
+int	Client::getFd() const
 {
 	return (this->fd);
 }
 
-bool Client::get_registered() const
+bool Client::getRegistered() const
 {
 	return (this->registered);
 }
 
-std::string	Client::get_server_password_sent() const
+std::string	Client::getServerPasswordSent() const
 {
 	return (this->server_password_sent);
 }
 
-std::string Client::get_ip() const
+std::string Client::getIp() const
 {
 	return (this->ip);
 }

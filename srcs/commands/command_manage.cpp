@@ -6,7 +6,7 @@ Client* find_client(std::vector<Client*> &repertory, int fd)
 
     while(it != repertory.end())
     {
-        if ((*it)->get_fd() == fd)
+        if ((*it)->getFd() == fd)
             return ((*it));
         it++;
     }
@@ -18,9 +18,10 @@ void register_process(std::vector<Client*> repertory, Client* client, std::strin
 {
     std::string str;
 
-    if (client->get_server_password_sent().compare(server_password))
+    if (client->getServerPasswordSent().compare(server_password))
     {
         client->numeric_reply("464", ":wrong password");
+		*client << ":" << (std::string)SERVER_NAME << " ERROR :wrong password\n";
         throw std::exception();
     }
     str = ":Welcome to the " + (std::string)NETWORK_NAME + "Network, " + client->getNick();
@@ -45,7 +46,7 @@ void register_process(std::vector<Client*> repertory, Client* client, std::strin
 
     client->numeric_reply("221", "+r");
     client->numeric_reply("422", ":no message today");
-    client->set_registered(1);
+    client->setRegistered(1);
 }
 
 //user mode: r->registered o-> operator
@@ -58,7 +59,7 @@ void command_manage(std::vector<Client*> repertory, int fd, char* buff, std::str
 	
     author = find_client(repertory, fd);
     f = c.cmd_match();
-    if (!author->get_registered() && !(f == &Commands::cmd_user || f == &Commands::cmd_nick || f == &Commands::cmd_pass))
+    if (!author->getRegistered() && !(f == &Commands::cmd_user || f == &Commands::cmd_nick || f == &Commands::cmd_pass))
 	{
         author->numeric_reply("451", ":not registered");
         return ;
@@ -66,6 +67,6 @@ void command_manage(std::vector<Client*> repertory, int fd, char* buff, std::str
     std::cout << buff;
 	if (f)
         (c.*f)(repertory, author);
-    if (!author->get_registered() && !author->getRealname().empty() && !author->getNick().empty() && !author->get_server_password_sent().empty())
+    if (!author->getRegistered() && !author->getRealname().empty() && !author->getNick().empty() && !author->getServerPasswordSent().empty())
         register_process(repertory, author, server_password);
 }

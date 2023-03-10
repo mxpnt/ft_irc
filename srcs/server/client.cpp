@@ -26,7 +26,7 @@ void	delete_client(std::vector<Client*>& repertory, int fd)
 
 	while (it != repertory.end())
 	{
-		if ((*it)->get_fd() == fd)
+		if ((*it)->getFd() == fd)
 		{
 			delete *it;
 			repertory.erase(it);

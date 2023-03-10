@@ -19,7 +19,8 @@ CLASS		=	splitstringClass.cpp \
 				commandsClass.cpp \
 				clientClass.cpp
 
-UTILS		=	is_number.cpp
+UTILS		=	is_number.cpp \
+				is_valid_nick.cpp
 
 SRCS		=	${SRC} \
 				${addprefix commands/, ${COMMANDS}} \
