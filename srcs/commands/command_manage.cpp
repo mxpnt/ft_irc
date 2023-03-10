@@ -6,7 +6,7 @@ Client* find_client(std::vector<Client*> &repertory, int fd)
 
     while(it != repertory.end())
     {
-        if ((*it)->get_fd() == fd)
+        if ((*it)->getFd() == fd)
             return ((*it));
         it++;
     }
@@ -23,7 +23,7 @@ void command_manage(std::vector<Client*> repertory, int fd, char* buff)
     Client      *author = find_client(repertory, fd);
 	
     if (!author->registered && !(f == &Commands::cmd_user || f == &Commands::cmd_nick || f == &Commands::cmd_pass))
-	{
+	  {
         author->numeric_reply("451", ":not registered");
         return ;
     }

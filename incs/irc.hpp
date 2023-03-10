@@ -5,6 +5,7 @@
 # define SERVER_NAME "irc.42"
 # define NETWORK_NAME "42"
 # define VERSION "1.0"
+# define USERLEN 10
 
 # include <iostream>
 # include <sys/types.h>
@@ -28,6 +29,7 @@
 # include "clientClass.hpp"
 
 /***** server.cpp *****/
+
 int     create_server(int port);
 
 /***** client.cpp *****/
@@ -41,6 +43,9 @@ void    command_manage(std::vector<Client*> repertory, int fd, char* buff);
 
 /***** is_number.cpp *****/
 int     is_number(std::string str);
+
+/***** is_valid_nick.cpp *****/
+int		is_valid_nick(std::string nick);
 
 template < typename T > std::string to_string( const T& n )
 {

@@ -14,5 +14,5 @@ void		Commands::cmd_pass(std::vector<Client*> &repertory, Client *client)
         client->numeric_reply("462", ":already registered");
         return ;
     }
-    client->set_server_password(this->msg[1]);
+    client->setServerPassword(this->msg[1]);
 }

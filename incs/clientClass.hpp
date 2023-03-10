@@ -28,14 +28,14 @@ public:
 	void	setUser(std::string u);
 	void	setNick(std::string n);
 	void	setRealname(std::string rn);
-	void	set_server_password(std::string password);
+	void	setServerPassword(std::string password);
 
 	std::string	getUser() const;
 	std::string	getNick() const;
 	std::string	getRealname() const;
-	int			get_fd() const;
-	std::string	get_server_password() const;
-	std::string get_ip() const;
+	int			getFd() const;
+	std::string	getServerPassword() const;
+	std::string getIp() const;
 };
 
 std::ostream &operator<<(std::ostream &os, Client const &obj);
