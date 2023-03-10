@@ -41,9 +41,15 @@ void	Commands::init_map()
 	this->cmd["USER"] = &Commands::cmd_user;
 	this->cmd["NICK"] = &Commands::cmd_nick;
 	this->cmd["PASS"] = &Commands::cmd_pass;
-	this->cmd["JOIN"] = 0;
+	this->cmd["JOIN"] = &Commands::cmd_join;
 	this->cmd["PRIVMSG"] = 0;
 	this->cmd["QUIT"] = 0;
+	
+	//oper command
+	this->cmd["KICK"] = 0;
+	this->cmd["MODE"] = 0;
+	this->cmd["INVITE"] = 0;
+	this->cmd["TOPIC"] = 0;
 }
 
 command_ptr	Commands::cmd_match()

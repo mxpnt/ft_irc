@@ -1,7 +1,6 @@
 #ifndef IRC_HPP
 # define IRC_HPP
 
-# define SERVER_IP "10.14.7.7"
 # define SERVER_NAME "irc.42"
 # define NETWORK_NAME "42"
 # define VERSION "1.0"
@@ -41,8 +40,10 @@ void    register_process(std::vector<Client*> repertory, Client* client);
 /***** command_manage.cpp *****/
 void    command_manage(std::vector<Client*> repertory, int fd, char* buff);
 
-/***** is_number.cpp *****/
+/***** is_alphanum.cpp *****/
 int     is_number(std::string str);
+int     is_alpha(std::string str);
+int     is_alphanum(std::string str);
 
 /***** is_valid_nick.cpp *****/
 int		is_valid_nick(std::string nick);

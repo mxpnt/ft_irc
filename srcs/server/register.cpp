@@ -4,7 +4,7 @@ void register_process(std::vector<Client*> repertory, Client* client)
 {
     std::string str;
 
-    if (client->getRealname().empty() || client->getNick().compare("*") || client->getServerPassword().empty())
+    if (client->getRealname().empty() || !client->getNick().compare("*") || client->getServerPassword().empty())
         return ;
     if (client->getServerPassword().compare(repertory[0]->getServerPassword()))
     {
@@ -19,7 +19,7 @@ void register_process(std::vector<Client*> repertory, Client* client)
 
     client->numeric_reply("003", ":this server was created today");
 
-    str = (std::string)SERVER_NAME + " " + (std::string)VERSION + " ro b"; //+ available user modes + available channel modes
+    str = (std::string)SERVER_NAME + " " + (std::string)VERSION + " ro pi"; //+ available user modes + available channel modes
     client->numeric_reply("004", str);
 
     str = "CHANTYPES=# NETWORK=" + (std::string)NETWORK_NAME + " :supported by the server";

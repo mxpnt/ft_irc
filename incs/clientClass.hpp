@@ -5,6 +5,7 @@
 
 class	Client	{
 private:
+	
 	std::string		user;
 	std::string		nick;
 	std::string		realname;

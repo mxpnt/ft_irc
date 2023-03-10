@@ -3,14 +3,16 @@ NAME		=	ircserv
 INC			=	incs/irc.hpp \
 				incs/splitstringClass.hpp \
 				incs/commandsClass.hpp \
-				incs/clientClass.hpp
+				incs/clientClass.hpp \
+				incs/channelsClass.hpp
 
 SRC			=	main.cpp
 
 COMMANDS	=	command_manage.cpp \
 				pass_cmd.cpp \
 				user_cmd.cpp \
-				nick_cmd.cpp
+				nick_cmd.cpp \
+				join_cmd.cpp
 
 SERVER		= 	server.cpp \
 				client.cpp \
@@ -18,9 +20,10 @@ SERVER		= 	server.cpp \
 
 CLASS		=	splitstringClass.cpp \
 				commandsClass.cpp \
-				clientClass.cpp
+				clientClass.cpp \
+				channelsClass.cpp
 
-UTILS		=	is_number.cpp \
+UTILS		=	is_alphanum.cpp \
 				is_valid_nick.cpp
 
 SRCS		=	${SRC} \
