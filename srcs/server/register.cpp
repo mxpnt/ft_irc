@@ -19,7 +19,7 @@ void register_process(std::vector<Client*> repertory, Client* client)
 
     client->numeric_reply("003", ":this server was created today");
 
-    str = (std::string)SERVER_NAME + " " + (std::string)VERSION + " ro pi"; //+ available user modes + available channel modes
+    str = (std::string)SERVER_NAME + " " + (std::string)VERSION + " ro ri"; //channel mode r=registered only, i=invite only
     client->numeric_reply("004", str);
 
     str = "CHANTYPES=# NETWORK=" + (std::string)NETWORK_NAME + " :supported by the server";

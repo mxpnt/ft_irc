@@ -27,6 +27,7 @@
 # include "splitstringClass.hpp"
 # include "commandsClass.hpp"
 # include "clientClass.hpp"
+# include "channelClass.hpp"
 
 /***** server.cpp *****/
 std::pair<int, std::string>    create_server(int port);

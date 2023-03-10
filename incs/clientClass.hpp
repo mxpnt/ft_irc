@@ -3,6 +3,8 @@
 
 # include "irc.hpp"
 
+class Channel;
+
 class	Client	{
 private:
 	
@@ -20,7 +22,8 @@ public:
 
 	Client	&operator=(Client const &rhs);
 
-	bool			registered;
+	bool					registered;
+	std::vector<Channel>	channels;
 
 	void	numeric_reply(std::string numeric, std::string description);
 	void	reply(Client* sender, std::string cmd, std::string dst, std::string description);
