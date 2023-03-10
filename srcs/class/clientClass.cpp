@@ -2,18 +2,6 @@
 
 /***** CONSTRUCTORS AND DESTRUCTOR *****/
 
-Client::Client(std::vector<struct pollfd> &tab_pollfd, int socket)
-{
-	tab_pollfd.resize(tab_pollfd.size() + 1);
-	tab_pollfd.back().fd = socket;
-	tab_pollfd.back().events = POLLIN;
-	tab_pollfd.back().revents = 0;
-	
-	this->nick = "*";
-	this->fd = socket;
-	this->registered = 0;
-}
-
 Client::Client(std::vector<struct pollfd> &tab_pollfd, int socket, std::string ip)
 {
 	tab_pollfd.resize(tab_pollfd.size() + 1);

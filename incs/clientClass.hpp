@@ -13,7 +13,6 @@ private:
 	int				fd;
 
 public:
-	Client(std::vector<struct pollfd> &tab_pollfd, int socket);
 	Client(std::vector<struct pollfd> &tab_pollfd, int socket, std::string ip);
 	Client(Client const &f);
 	~Client();

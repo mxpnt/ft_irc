@@ -1,6 +1,6 @@
 #include "../../incs/irc.hpp"
 
-int	create_server(int port)
+std::pair<int, std::string>	create_server(int port)
 {
 	int	listen_sd;
 	int	bind_result;
@@ -29,5 +29,6 @@ int	create_server(int port)
 	if (rc < 0 || bind_result < 0 || listen_result < 0)
 		exit (-1);
 	std::cout << "Server start" << std::endl;
-	return (listen_sd);
+	std::pair<int, std::string> server_socket_and_ip(listen_sd, inet_ntoa(server_addr.sin_addr));
+	return (server_socket_and_ip);
 }

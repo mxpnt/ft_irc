@@ -4,9 +4,9 @@ void register_process(std::vector<Client*> repertory, Client* client)
 {
     std::string str;
 
-    if (client->getRealname().empty() || client->getNick().compare("*") || client->get_server_password().empty())
+    if (client->getRealname().empty() || client->getNick().compare("*") || client->getServerPassword().empty())
         return ;
-    if (client->get_server_password().compare(repertory[0]->get_server_password()))
+    if (client->getServerPassword().compare(repertory[0]->getServerPassword()))
     {
         client->numeric_reply("464", ":wrong password");
         throw std::exception();
@@ -14,7 +14,7 @@ void register_process(std::vector<Client*> repertory, Client* client)
     str = ":Welcome to the " + (std::string)NETWORK_NAME + "Network, " + client->getNick();
     client->numeric_reply("001", str);
 
-    str = ":Your host is " + (std::string)SERVER_NAME + "[" + (std::string)SERVER_IP + "/4545], running version " + (std::string)VERSION;
+    str = ":Your host is " + (std::string)SERVER_NAME + "[" + repertory[0]->getIp() + "], running version " + (std::string)VERSION;
     client->numeric_reply("002", str);
 
     client->numeric_reply("003", ":this server was created today");

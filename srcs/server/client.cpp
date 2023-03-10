@@ -37,7 +37,7 @@ void	delete_client(std::vector<Client*>& repertory, int fd)
 	std::cout << "delete_client() error: client fd not found" << std::endl;
 }
 
-void	wait_client(int server_socket, std::string server_password)
+void	wait_client(std::pair<int, std::string> server_socket_and_ip, std::string server_password)
 {
 	std::vector<Client*>		repertory;
 	std::vector<struct pollfd>	tab_pollfd;
@@ -45,15 +45,15 @@ void	wait_client(int server_socket, std::string server_password)
 
 	int		i = 0;
 
-	repertory.push_back(new Client(tab_pollfd, server_socket));
-	repertory[0]->set_server_password(server_password);
+	repertory.push_back(new Client(tab_pollfd, server_socket_and_ip.first, server_socket_and_ip.second));
+	repertory[0]->setServerPassword(server_password);
 	while (1)
 	{
 		int	pollResult = poll(&tab_pollfd[0], tab_pollfd.size(), 1800);
 		if (pollResult > 0)
 		{
 			if (tab_pollfd[0].revents & POLLIN)	{
-				new_client(server_socket, tab_pollfd, repertory);
+				new_client(repertory[0]->getFd(), tab_pollfd, repertory);
 			}
 
 			it = tab_pollfd.begin();

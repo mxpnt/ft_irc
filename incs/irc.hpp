@@ -21,6 +21,7 @@
 # include <poll.h>
 # include <vector>
 # include <map>
+# include <utility>
 # include <arpa/inet.h>
 # include <sstream>
 
@@ -29,11 +30,10 @@
 # include "clientClass.hpp"
 
 /***** server.cpp *****/
-
-int     create_server(int port);
+std::pair<int, std::string>    create_server(int port);
 
 /***** client.cpp *****/
-void    wait_client(int server_socket, std::string server_password);
+void    wait_client(std::pair<int, std::string> server_socket_and_ip, std::string server_password);
 
 /***** register.cpp *****/
 void    register_process(std::vector<Client*> repertory, Client* client);
