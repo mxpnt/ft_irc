@@ -33,7 +33,7 @@ void    Commands::cmd_join(std::vector<Client*> &repertory, Client *client)
         repertory[0]->channels.push_back(Channel(chan_name, client));
         chan = &repertory[0]->channels.back();
     }
-    else if (chan->getMode() == 'i')
+    else if (chan->getMode() == 'i')//&& user non invited
     {
         client->numeric_reply("473", ":invite only chan");
         return;
