@@ -22,7 +22,7 @@ void	Commands::cmd_nick(std::vector<Client*> &repertory, Client *client)
 		}
 		++it;
 	}
-	if (client->getRegistered())
+	if (client->registered)
 		client->reply(client, "NICK", "", this->msg[1]);
 	client->setNick(msg[1]);
 }

@@ -90,14 +90,9 @@ void	Client::setRealname(std::string rn)
 	this->realname = rn;
 }
 
-void	Client::setRegistered(bool n)
+void	Client::setServerPassword(std::string password)
 {
-	this->registered = n;
-}
-
-void	Client::setServerPasswordSent(std::string password)
-{
-	this->server_password_sent = password;
+	this->server_password = password;
 }
 
 /***** GETTERS *****/
@@ -122,14 +117,9 @@ int	Client::getFd() const
 	return (this->fd);
 }
 
-bool Client::getRegistered() const
+std::string	Client::getServerPassword() const
 {
-	return (this->registered);
-}
-
-std::string	Client::getServerPasswordSent() const
-{
-	return (this->server_password_sent);
+	return (this->server_password);
 }
 
 std::string Client::getIp() const

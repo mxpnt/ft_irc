@@ -9,10 +9,10 @@ void		Commands::cmd_pass(std::vector<Client*> &repertory, Client *client)
         client->numeric_reply("461", ":need more parameters");
         return ;
     }
-    if (client->getRegistered())
+    if (client->registered)
     {
         client->numeric_reply("462", ":already registered");
         return ;
     }
-    client->setServerPasswordSent(this->msg[1]);
+    client->setServerPassword(this->msg[1]);
 }
