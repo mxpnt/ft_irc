@@ -12,7 +12,7 @@ Commands::Commands(Commands const &f)
 	*this = f;
 }
 
-Commands::Commands(std::string str)
+Commands::Commands(string str)
 {
 	SplitString	s(str.c_str());
 	this->msg = s.split(' ');
@@ -55,7 +55,7 @@ void	Commands::init_map()
 command_ptr	Commands::cmd_match()
 {
 	// for (size_t i = 0; i < this->msg.size(); ++i)
-	// 	std::cout << this->msg[i];
+	// 	cout << this->msg[i];
 	if (msg.size())
 	{
 		if (cmd.find(msg[0]) != cmd.end())

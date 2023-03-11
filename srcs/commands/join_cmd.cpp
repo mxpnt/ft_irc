@@ -1,8 +1,8 @@
 # include "../../incs/commandsClass.hpp"
 
-Channel* find_channel(std::vector<Channel>& channels, std::string name)
+Channel* find_channel(vector<Channel>& channels, string name)
 {
-    std::vector<Channel>::iterator  it = channels.begin();
+    vector<Channel>::iterator  it = channels.begin();
 
     while (it != channels.end())
     {
@@ -13,7 +13,7 @@ Channel* find_channel(std::vector<Channel>& channels, std::string name)
     return (0);
 }
 
-void    Commands::cmd_join(std::vector<Client*> &repertory, Client *client)
+void    Commands::cmd_join(vector<Client*> &repertory, Client *client)
 {
     if (this->msg.size() < 2)
     {
@@ -21,7 +21,7 @@ void    Commands::cmd_join(std::vector<Client*> &repertory, Client *client)
         return ;
     }
  
-    std::string chan_name = this->msg[1];
+    string chan_name = this->msg[1];
     if (this->msg.size() > 2 || chan_name.at(0) != '#' || !is_alpha(&(chan_name[1])))
     {
         client->numeric_reply("476", ":bad chan name, only letters prefixed by a #");
@@ -44,7 +44,7 @@ void    Commands::cmd_join(std::vector<Client*> &repertory, Client *client)
 
     chan->multi_reply(client, "JOIN", chan_name, "joined channel");
     
-    std::string str;
+    string str;
     str = chan->getName() + " :" + chan->getTopic();
     client->numeric_reply("332", str);
     

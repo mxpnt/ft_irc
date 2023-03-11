@@ -1,6 +1,6 @@
 #include "../../incs/channelClass.hpp"
 
-Channel::Channel(std::string name, Client* oper)
+Channel::Channel(string name, Client* oper)
 {
     this->name = name;
     this->topic = "default topic";
@@ -34,7 +34,7 @@ void    Channel::add_user(Client* user)
 
 void    Channel::del_user(Client* user)
 {
-    std::vector<Client*>::iterator  it = this->user_list.begin();
+    vector<Client*>::iterator  it = this->user_list.begin();
 
     while (it != this->user_list.end())
     {
@@ -51,9 +51,9 @@ int Channel::is_oper(Client* user)
     return (0);
 }
 
-void    Channel::multi_reply(Client* sender, std::string cmd, std::string dst, std::string description)
+void    Channel::multi_reply(Client* sender, string cmd, string dst, string description)
 {
-    std::vector<Client*>::iterator  it = this->user_list.begin();
+    vector<Client*>::iterator  it = this->user_list.begin();
 
     while (it != this->user_list.end())
     {
@@ -62,12 +62,12 @@ void    Channel::multi_reply(Client* sender, std::string cmd, std::string dst, s
     }
 }
 
-std::string Channel::getName() const
+string Channel::getName() const
 {
     return (this->name);
 }
 
-std::string Channel::getTopic() const
+string Channel::getTopic() const
 {
     return (this->topic);
 }
@@ -77,7 +77,7 @@ char    Channel::getMode() const
     return (this->mode);
 }
 
-std::string    Channel::getSymbol() const
+string    Channel::getSymbol() const
 {
     //= -> public, @ -> secret
     if (this->mode == 'r')
@@ -86,10 +86,10 @@ std::string    Channel::getSymbol() const
         return ("@");
 }
 
-std::string Channel::getUser() const
+string Channel::getUser() const
 {
-    std::vector<Client*>::const_iterator  it = this->user_list.begin();
-    std::string user = "@";
+    vector<Client*>::const_iterator  it = this->user_list.begin();
+    string user = "@";
 
     while (it != this->user_list.end())
     {
@@ -101,12 +101,12 @@ std::string Channel::getUser() const
     return (user);
 }
 
-std::vector<Client*>    Channel::getUserList() const
+vector<Client*>    Channel::getUserList() const
 {
     return (this->user_list);
 }
 
-void    Channel::setTopic(std::string topic)
+void    Channel::setTopic(string topic)
 {
     this->topic = topic;
 }

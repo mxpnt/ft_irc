@@ -5,13 +5,13 @@
 
 class Channel {
     private :
-        std::string name;
-        std::string topic;
+        string name;
+        string topic;
         char        mode;
-        std::vector<Client*> user_list;
+        vector<Client*> user_list;
 
     public :
-        Channel(std::string name, Client* oper);
+        Channel(string name, Client* oper);
         Channel(const Channel& x);
         ~Channel();
 
@@ -20,16 +20,16 @@ class Channel {
         void    add_user(Client* user);
         void    del_user(Client* user);
         int     is_oper(Client* user);
-        void    multi_reply(Client* sender, std::string cmd, std::string dst, std::string description);
+        void    multi_reply(Client* sender, string cmd, string dst, string description);
 
-        std::string             getName() const;
-        std::string             getTopic() const;
+        string             getName() const;
+        string             getTopic() const;
         char                    getMode() const;
-        std::string             getSymbol() const;
-        std::string             getUser() const;
-        std::vector<Client*>    getUserList() const;
+        string             getSymbol() const;
+        string             getUser() const;
+        vector<Client*>    getUserList() const;
 
-        void    setTopic(std::string topic);
+        void    setTopic(string topic);
         void    setMode(char mode);
 };
 

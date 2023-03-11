@@ -6,29 +6,29 @@
 class	Client;
 class	Commands;
 
-typedef void (Commands::*command_ptr)(std::vector<Client*>&, Client*);
+typedef void (Commands::*command_ptr)(vector<Client*>&, Client*);
 
 class	Commands {
 private:
-	std::map<std::string, command_ptr>	cmd;
-	std::vector<std::string>	msg;
-	std::string					name;
+	map<string, command_ptr>	cmd;
+	vector<string>	msg;
+	string					name;
 
 	void	init_map();
 public:
 	Commands();
 	Commands(Commands const &f);
-	Commands(std::string s);
+	Commands(string s);
 	~Commands();
 
 	Commands	&operator=(Commands const &rhs);
 
 	command_ptr	cmd_match();
-	void		cmd_user(std::vector<Client*> &repertory, Client *client);
-	void		cmd_nick(std::vector<Client*> &repertory, Client *client);
-	void		cmd_pass(std::vector<Client*> &repertory, Client *client);
-	void		cmd_join(std::vector<Client*> &repertory, Client *client);
-	void		cmd_quit(std::vector<Client*> &repertory, Client *client);
+	void		cmd_user(vector<Client*> &repertory, Client *client);
+	void		cmd_nick(vector<Client*> &repertory, Client *client);
+	void		cmd_pass(vector<Client*> &repertory, Client *client);
+	void		cmd_join(vector<Client*> &repertory, Client *client);
+	void		cmd_quit(vector<Client*> &repertory, Client *client);
 };
 
 #endif

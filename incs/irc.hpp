@@ -24,34 +24,36 @@
 # include <arpa/inet.h>
 # include <sstream>
 
+using namespace std;
+
 # include "splitstringClass.hpp"
 # include "commandsClass.hpp"
 # include "clientClass.hpp"
 # include "channelClass.hpp"
 
 /***** server.cpp *****/
-std::pair<int, std::string>    create_server(int port);
+pair<int, string>    create_server(int port);
 
 /***** client.cpp *****/
-void    wait_client(std::pair<int, std::string> server_socket_and_ip, std::string server_password);
+void    wait_client(pair<int, string> server_socket_and_ip, string server_password);
 
 /***** register.cpp *****/
-void    register_process(std::vector<Client*> repertory, Client* client);
+void    register_process(vector<Client*> repertory, Client* client);
 
 /***** command_manage.cpp *****/
-void    command_manage(std::vector<Client*> repertory, int fd, char* buff);
+void    command_manage(vector<Client*> repertory, int fd, char* buff);
 
 /***** is_alphanum.cpp *****/
-int     is_number(std::string str);
-int     is_alpha(std::string str);
-int     is_alphanum(std::string str);
+int     is_number(string str);
+int     is_alpha(string str);
+int     is_alphanum(string str);
 
 /***** is_valid_nick.cpp *****/
-int		is_valid_nick(std::string nick);
+int		is_valid_nick(string nick);
 
-template < typename T > std::string to_string( const T& n )
+template < typename T > string to_string( const T& n )
 {
-    std::ostringstream stm ;
+    ostringstream stm ;
     stm << n ;
     return stm.str() ;
 }

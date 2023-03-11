@@ -8,40 +8,40 @@ class Channel;
 class	Client	{
 private:
 	
-	std::string		user;
-	std::string		nick;
-	std::string		realname;
-	std::string		server_password;
-	std::string		ip;
+	string		user;
+	string		nick;
+	string		realname;
+	string		server_password;
+	string		ip;
 	int				fd;
 
 public:
-	Client(std::vector<struct pollfd> &tab_pollfd, int socket, std::string ip);
+	Client(vector<struct pollfd> &tab_pollfd, int socket, string ip);
 	Client(Client const &f);
 	~Client();
 
 	Client	&operator=(Client const &rhs);
 
 	bool					registered;
-	std::vector<Channel>	channels;
+	vector<Channel>	channels;
 
-	void	numeric_reply(std::string numeric, std::string description);
-	void	reply(Client* sender, std::string cmd, std::string dst, std::string description);
+	void	numeric_reply(string numeric, string description);
+	void	reply(Client* sender, string cmd, string dst, string description);
 
-	void	setUser(std::string u);
-	void	setNick(std::string n);
-	void	setRealname(std::string rn);
-	void	setServerPassword(std::string password);
+	void	setUser(string u);
+	void	setNick(string n);
+	void	setRealname(string rn);
+	void	setServerPassword(string password);
 
-	std::string	getUser() const;
-	std::string	getNick() const;
-	std::string	getRealname() const;
+	string	getUser() const;
+	string	getNick() const;
+	string	getRealname() const;
 	int			getFd() const;
-	std::string	getServerPassword() const;
-	std::string getIp() const;
+	string	getServerPassword() const;
+	string getIp() const;
 };
 
-std::ostream &operator<<(std::ostream &os, Client const &obj);
-Client& operator<<(Client& client, std::string str);
+ostream &operator<<(ostream &os, Client const &obj);
+Client& operator<<(Client& client, string str);
 
 #endif

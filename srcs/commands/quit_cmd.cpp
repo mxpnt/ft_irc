@@ -1,6 +1,6 @@
 #include "../../incs/irc.hpp"
 
-void	Commands::cmd_quit(std::vector<Client*> &repertory, Client *client)
+void	Commands::cmd_quit(vector<Client*> &repertory, Client *client)
 {
 	if (msg.size() > 1)
 	{
@@ -9,8 +9,8 @@ void	Commands::cmd_quit(std::vector<Client*> &repertory, Client *client)
 	}
 	else
 	{
-		*client << ":" << (std::string)SERVER_NAME << " ERROR : Connection closed\n";
+		*client << ":" << (string)SERVER_NAME << " ERROR : Connection closed\n";
 		// envoyer msg Quit: a tous les clients qui partagent un channel avec cet user
 	}
-	throw std::exception();
+	throw exception();
 }

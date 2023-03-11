@@ -9,20 +9,20 @@ size_t Recv(char* buffer, size_t size, int socket)
     return (total);
 }
 
-void	new_client(int server_socket, std::vector<struct pollfd> &tab_pollfd, std::vector<Client*> &repertory)
+void	new_client(int server_socket, vector<struct pollfd> &tab_pollfd, vector<Client*> &repertory)
 {
 	struct sockaddr_in	client_addr;
 	int					c_addr_len = sizeof(client_addr);
 	int					client_socket = accept(server_socket, (struct sockaddr *)&client_addr, (socklen_t *)&c_addr_len);
-	std::string			client_ip = inet_ntoa(client_addr.sin_addr);
+	string			client_ip = inet_ntoa(client_addr.sin_addr);
 
-	std::cout << "accept success " << client_ip << std::endl;
+	cout << "accept success " << client_ip << endl;
 	repertory.push_back(new Client(tab_pollfd, client_socket, client_ip));
 }
 
-void	delete_client(std::vector<Client*>& repertory, int fd)
+void	delete_client(vector<Client*>& repertory, int fd)
 {
-	std::vector<Client*>::iterator	it = repertory.begin();
+	vector<Client*>::iterator	it = repertory.begin();
 
 	while (it != repertory.end())
 	{
@@ -34,14 +34,14 @@ void	delete_client(std::vector<Client*>& repertory, int fd)
 		}
 		it++;
 	}
-	std::cout << "delete_client() error: client fd not found" << std::endl;
+	cout << "delete_client() error: client fd not found" << endl;
 }
 
-void	wait_client(std::pair<int, std::string> server_socket_and_ip, std::string server_password)
+void	wait_client(pair<int, string> server_socket_and_ip, string server_password)
 {
-	std::vector<Client*>		repertory;
-	std::vector<struct pollfd>	tab_pollfd;
-	std::vector<struct pollfd>::iterator it;
+	vector<Client*>		repertory;
+	vector<struct pollfd>	tab_pollfd;
+	vector<struct pollfd>::iterator it;
 
 	int		i = 0;
 
@@ -75,7 +75,7 @@ void	wait_client(std::pair<int, std::string> server_socket_and_ip, std::string s
 					{
 						command_manage(repertory, (*it).fd, buff);
 					}
-					catch (std::exception &e)
+					catch (exception &e)
 					{
 						delete_client(repertory, (*it).fd);
 						tab_pollfd.erase(it);

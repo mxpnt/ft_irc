@@ -3,10 +3,10 @@
 int	main(int argc, char **argv)
 {
 	long			port;
-	std::pair<int, std::string> server_socket_and_ip;
+	pair<int, string> server_socket_and_ip;
 
 	if (argc != 3)	{
-		std::cerr << "Wrong number of arguments" << std::endl;
+		cerr << "Wrong number of arguments" << endl;
 		return (1);
 	}
 	port = strtol(argv[1], 0, 10);
@@ -14,7 +14,7 @@ int	main(int argc, char **argv)
 		if (errno != 0)
 			perror("strtol()");
 		else
-			std::cerr << "Port invalid" << std::endl;
+			cerr << "Port invalid" << endl;
 		return (2);
 	}
 	server_socket_and_ip = create_server(port);

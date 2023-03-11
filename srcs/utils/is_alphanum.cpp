@@ -1,6 +1,6 @@
 #include "../../incs/irc.hpp"
 
-int	is_number(std::string str)
+int	is_number(string str)
 {
 	int	i = 0;
 
@@ -13,7 +13,7 @@ int	is_number(std::string str)
 	return (1);
 }
 
-int	is_alpha(std::string str)
+int	is_alpha(string str)
 {
 	int	i = 0;
 
@@ -26,7 +26,7 @@ int	is_alpha(std::string str)
 	return (1);
 }
 
-int	is_alphanum(std::string str)
+int	is_alphanum(string str)
 {
 	if(is_alpha(str) && is_number(str))
 		return (1);
