@@ -25,7 +25,7 @@ class Channel {
         std::string             getName() const;
         std::string             getTopic() const;
         char                    getMode() const;
-        char                    getSymbol() const;
+        std::string             getSymbol() const;
         std::string             getUser() const;
         std::vector<Client*>    getUserList() const;
 

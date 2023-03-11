@@ -8,6 +8,7 @@ Channel* find_channel(std::vector<Channel>& channels, std::string name)
     {
         if (!(*it).getName().compare(name))
             return (&(*it));
+        it++;
     }
     return (0);
 }

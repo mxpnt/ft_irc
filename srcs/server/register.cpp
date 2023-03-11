@@ -6,6 +6,7 @@ void register_process(std::vector<Client*> repertory, Client* client)
 
     if (client->getRealname().empty() || !client->getNick().compare("*") || client->getServerPassword().empty())
         return ;
+    std::cout << "starting registration..." << std::endl;
     if (client->getServerPassword().compare(repertory[0]->getServerPassword()))
     {
         client->numeric_reply("464", ":wrong password");

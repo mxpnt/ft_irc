@@ -55,7 +55,6 @@ void    Channel::multi_reply(Client* sender, std::string cmd, std::string dst, s
 {
     std::vector<Client*>::iterator  it = this->user_list.begin();
 
-    std::cout << "non" << std::endl;
     while (it != this->user_list.end())
     {
         (*it)->reply(sender, cmd, dst, description);
@@ -78,13 +77,13 @@ char    Channel::getMode() const
     return (this->mode);
 }
 
-char    Channel::getSymbol() const
+std::string    Channel::getSymbol() const
 {
     //= -> public, @ -> secret
     if (this->mode == 'r')
-        return ('=');
+        return ("=");
     else
-        return ('@');
+        return ("@");
 }
 
 std::string Channel::getUser() const
