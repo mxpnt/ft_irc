@@ -34,7 +34,9 @@ void    Commands::cmd_join(vector<Client*> &repertory, Client *client)
         repertory[0]->channels.push_back(Channel(chan_name, client));
         chan = &repertory[0]->channels.back();
     }
-    else if (chan->getMode() == 'i')//&& user non invited
+    else if (chan->already_joined(client))
+        return ;
+    else if (chan->getMode() == 'i' && !chan->check_invite(client))
     {
         client->numeric_reply("473", ":invite only chan");
         return;
@@ -48,7 +50,7 @@ void    Commands::cmd_join(vector<Client*> &repertory, Client *client)
     str = chan->getName() + " :" + chan->getTopic();
     client->numeric_reply("332", str);
     
-    str = chan->getSymbol() + " " + chan->getName() + " :" + chan->getUser();
+    str = chan->getSymbol() + " " + chan->getName() + " :" + chan->getUsers();
     client->numeric_reply("353", str);
     
     str = chan->getName() + " :End of NAMES list";

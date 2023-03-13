@@ -13,7 +13,7 @@ private:
 	string		realname;
 	string		server_password;
 	string		ip;
-	int				fd;
+	int			fd;
 
 public:
 	Client(vector<struct pollfd> &tab_pollfd, int socket, string ip);
@@ -22,7 +22,7 @@ public:
 
 	Client	&operator=(Client const &rhs);
 
-	bool					registered;
+	bool			registered;
 	vector<Channel>	channels;
 
 	void	numeric_reply(string numeric, string description);

@@ -51,6 +51,32 @@ int Channel::is_oper(Client* user)
     return (0);
 }
 
+int Channel::already_joined(Client* user)
+{
+    vector<Client*>::iterator   it = this->user_list.begin();
+
+    while (it != this->user_list.end())
+    {
+        if ((*it) == user)
+            return (1);
+        it++;
+    }
+    return (0);
+}
+
+int Channel::check_invite(Client* user)
+{
+    vector<Client*>::iterator   it = this->invite_list.begin();
+
+    while (it != this->invite_list.end())
+    {
+        if ((*it) == user)
+            return (1);
+        it++;
+    }
+    return (0);
+}
+
 void    Channel::multi_reply(Client* sender, string cmd, string dst, string description)
 {
     vector<Client*>::iterator  it = this->user_list.begin();
@@ -79,14 +105,14 @@ char    Channel::getMode() const
 
 string    Channel::getSymbol() const
 {
-    //= -> public, @ -> secret
+    //'r' = '=' -> public, 'i' = '@' -> secret
     if (this->mode == 'r')
         return ("=");
     else
         return ("@");
 }
 
-string Channel::getUser() const
+string Channel::getUsers() const
 {
     vector<Client*>::const_iterator  it = this->user_list.begin();
     string user = "@";

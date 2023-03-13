@@ -7,8 +7,9 @@ class Channel {
     private :
         string name;
         string topic;
-        char        mode;
+        char        mode; //'r' -> public, 'i' -> invite only
         vector<Client*> user_list;
+        vector<Client*> invite_list;
 
     public :
         Channel(string name, Client* oper);
@@ -20,13 +21,15 @@ class Channel {
         void    add_user(Client* user);
         void    del_user(Client* user);
         int     is_oper(Client* user);
+        int     already_joined(Client* user);
+        int     check_invite(Client* user);
         void    multi_reply(Client* sender, string cmd, string dst, string description);
 
         string             getName() const;
         string             getTopic() const;
-        char                    getMode() const;
+        char               getMode() const;
         string             getSymbol() const;
-        string             getUser() const;
+        string             getUsers() const;
         vector<Client*>    getUserList() const;
 
         void    setTopic(string topic);
