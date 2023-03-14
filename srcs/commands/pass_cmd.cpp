@@ -1,6 +1,6 @@
 #include "../../incs/commandsClass.hpp"
 
-void		Commands::cmd_pass(std::vector<Client*> &repertory, Client *client)
+void		Commands::cmd_pass(vector<Client*> &repertory, Client *client)
 {
     (void) repertory;
 

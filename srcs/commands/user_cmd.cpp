@@ -1,6 +1,6 @@
 #include "../../incs/commandsClass.hpp"
 
-void	Commands::cmd_user(std::vector<Client*> &repertory, Client *client)
+void	Commands::cmd_user(vector<Client*> &repertory, Client *client)
 {
 	(void) repertory;
 
@@ -14,13 +14,13 @@ void	Commands::cmd_user(std::vector<Client*> &repertory, Client *client)
 			if (msg[2] == "0" && msg[3] == "*")
 			{
 				if (msg[1].length() > USERLEN - 1)
-					msg[1].erase(USERLEN, std::string::npos);
+					msg[1].erase(USERLEN, string::npos);
 				client->setUser(msg[1]);
 				if (len > 4)
 				{
 					if (msg[4][0] == ':')
 					{
-						std::string	realname(msg[4]);
+						string	realname(msg[4]);
 						for (int i = 5; i < len; ++i)
 						{
 							realname.append(" ");

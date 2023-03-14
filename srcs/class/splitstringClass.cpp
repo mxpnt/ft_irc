@@ -6,12 +6,12 @@ SplitString::SplitString()
 {
 }
 
-SplitString::SplitString(SplitString const &f): std::string(f.c_str())
+SplitString::SplitString(SplitString const &f): string(f.c_str())
 {
 	*this = f;
 }
 
-SplitString::SplitString(const char *s): std::string(s)
+SplitString::SplitString(const char *s): string(s)
 {
 }
 
@@ -29,12 +29,12 @@ SplitString	&SplitString::operator=(SplitString const &rhs)
 
 /***** MEMBER FUNCTIONS *****/
 
-std::vector<std::string>	&SplitString::split(char delim)
+vector<string>	&SplitString::split(char delim)
 {
 	if (!flds.empty())
 			flds.clear();
-	std::string	work = data();
-	std::string	buf = "";
+	string	work = data();
+	string	buf = "";
 	size_t		i = 0;
 	while (i < work.length())
 	{

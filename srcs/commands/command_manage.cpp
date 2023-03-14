@@ -1,8 +1,8 @@
 #include "../../incs/irc.hpp"
 
-Client* find_client(std::vector<Client*> &repertory, int fd)
+Client* find_client(vector<Client*> &repertory, int fd)
 {
-    std::vector<Client*>::iterator it = repertory.begin();
+    vector<Client*>::iterator it = repertory.begin();
 
     while(it != repertory.end())
     {
@@ -10,13 +10,13 @@ Client* find_client(std::vector<Client*> &repertory, int fd)
             return ((*it));
         it++;
     }
-    std::cerr << "error find_client: client not found" << std::endl;
+    cerr << "error find_client: client not found" << endl;
     return (0);
 }
 
 //user mode: r->registered o-> operator
 
-void command_manage(std::vector<Client*> repertory, int fd, char* buff)
+void command_manage(vector<Client*> repertory, int fd, char* buff)
 {
     Commands	c(buff);
     command_ptr f = c.cmd_match();
@@ -27,7 +27,7 @@ void command_manage(std::vector<Client*> repertory, int fd, char* buff)
         author->numeric_reply("451", ":not registered");
         return ;
     }
-    std::cout << buff;
+    cout << buff;
 	if (f)
         (c.*f)(repertory, author);
     if (!author->registered)

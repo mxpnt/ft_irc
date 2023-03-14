@@ -2,19 +2,7 @@
 
 /***** CONSTRUCTORS AND DESTRUCTOR *****/
 
-Client::Client(std::vector<struct pollfd> &tab_pollfd, int socket)
-{
-	tab_pollfd.resize(tab_pollfd.size() + 1);
-	tab_pollfd.back().fd = socket;
-	tab_pollfd.back().events = POLLIN;
-	tab_pollfd.back().revents = 0;
-	
-	this->nick = "*";
-	this->fd = socket;
-	this->registered = 0;
-}
-
-Client::Client(std::vector<struct pollfd> &tab_pollfd, int socket, std::string ip)
+Client::Client(vector<struct pollfd> &tab_pollfd, int socket, string ip)
 {
 	tab_pollfd.resize(tab_pollfd.size() + 1);
 	tab_pollfd.back().fd = socket;
@@ -45,13 +33,13 @@ Client	&Client::operator=(Client const &rhs)
 	return (*this);
 }
 
-std::ostream &operator<<(std::ostream &os, Client const &obj)
+ostream &operator<<(ostream &os, Client const &obj)
 {
-	os << obj.getUser() << std::endl;
+	os << obj.getUser() << endl;
 	return (os);
 }
 
-Client& operator<<(Client& client, std::string str)
+Client& operator<<(Client& client, string str)
 {
 	write(client.getFd(), str.c_str(), str.size());
 	return client;
@@ -59,12 +47,12 @@ Client& operator<<(Client& client, std::string str)
 
 /***** member *****/
 
-void    Client::numeric_reply(std::string numeric, std::string description)
+void    Client::numeric_reply(string numeric, string description)
 {
     *this << ":" << SERVER_NAME << " " << numeric << " " << this->nick << " " << description << "\n";
 }
 
-void	Client::reply(Client* sender, std::string cmd, std::string dst, std::string description)
+void	Client::reply(Client* sender, string cmd, string dst, string description)
 {
 	*this << ":" << sender->nick << "!" << sender->user << "@" << sender->ip << " " << cmd << " ";
 	if (!dst.empty())
@@ -75,39 +63,39 @@ void	Client::reply(Client* sender, std::string cmd, std::string dst, std::string
 
 /***** SETTERS *****/
 
-void	Client::setUser(std::string u)
+void	Client::setUser(string u)
 {
 	this->user = u;
 }
 
-void	Client::setNick(std::string n)
+void	Client::setNick(string n)
 {
 	this->nick = n;
 }
 
-void	Client::setRealname(std::string rn)
+void	Client::setRealname(string rn)
 {
 	this->realname = rn;
 }
 
-void	Client::setServerPassword(std::string password)
+void	Client::setServerPassword(string password)
 {
 	this->server_password = password;
 }
 
 /***** GETTERS *****/
 
-std::string	Client::getUser() const
+string	Client::getUser() const
 {
 	return (this->user);
 }
 
-std::string	Client::getNick() const
+string	Client::getNick() const
 {
 	return (this->nick);
 }
 
-std::string	Client::getRealname() const
+string	Client::getRealname() const
 {
 	return (this->realname);
 }
@@ -117,12 +105,12 @@ int	Client::getFd() const
 	return (this->fd);
 }
 
-std::string	Client::getServerPassword() const
+string	Client::getServerPassword() const
 {
 	return (this->server_password);
 }
 
-std::string Client::getIp() const
+string Client::getIp() const
 {
 	return (this->ip);
 }

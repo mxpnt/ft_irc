@@ -1,28 +1,29 @@
 #include "../../incs/irc.hpp"
 
-void register_process(std::vector<Client*> repertory, Client* client)
+void register_process(vector<Client*> repertory, Client* client)
 {
-    std::string str;
+    string str;
 
-    if (client->getRealname().empty() || client->getNick().compare("*") || client->get_server_password().empty())
+    if (client->getRealname().empty() || !client->getNick().compare("*") || client->getServerPassword().empty())
         return ;
-    if (client->get_server_password().compare(repertory[0]->get_server_password()))
+    cout << "starting registration..." << endl;
+    if (client->getServerPassword().compare(repertory[0]->getServerPassword()))
     {
         client->numeric_reply("464", ":wrong password");
-        throw std::exception();
+        throw exception();
     }
-    str = ":Welcome to the " + (std::string)NETWORK_NAME + "Network, " + client->getNick();
+    str = ":Welcome to the " + (string)NETWORK_NAME + "Network, " + client->getNick();
     client->numeric_reply("001", str);
 
-    str = ":Your host is " + (std::string)SERVER_NAME + "[" + (std::string)SERVER_IP + "/4545], running version " + (std::string)VERSION;
+    str = ":Your host is " + (string)SERVER_NAME + "[" + repertory[0]->getIp() + "], running version " + (string)VERSION;
     client->numeric_reply("002", str);
 
     client->numeric_reply("003", ":this server was created today");
 
-    str = (std::string)SERVER_NAME + " " + (std::string)VERSION + " ro b"; //+ available user modes + available channel modes
+    str = (string)SERVER_NAME + " " + (string)VERSION + " ro ri"; //channel mode r=registered only, i=invite only
     client->numeric_reply("004", str);
 
-    str = "CHANTYPES=# NETWORK=" + (std::string)NETWORK_NAME + " :supported by the server";
+    str = "CHANTYPES=# NETWORK=" + (string)NETWORK_NAME + " :supported by the server";
     client->numeric_reply("005", str);
 
     str = ":There are " + to_string(repertory.size() - 1) + " users and 0 invisible on 0 servers";

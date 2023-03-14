@@ -3,9 +3,9 @@
 
 # include "irc.hpp"
 
-class	SplitString : public std::string	{
+class	SplitString : public string	{
 private:
-	std::vector<std::string> flds;
+	vector<string> flds;
 public:
 	SplitString();
 	SplitString(SplitString const &f);
@@ -14,7 +14,7 @@ public:
 
 	SplitString	&operator=(SplitString const &rhs);
 
-	std::vector<std::string> &split(char delim);
+	vector<string> &split(char delim);
 };
 
 #endif

@@ -1,6 +1,6 @@
 #include "../../incs/commandsClass.hpp"
 
-void	Commands::cmd_nick(std::vector<Client*> &repertory, Client *client)
+void	Commands::cmd_nick(vector<Client*> &repertory, Client *client)
 {
 	if (msg.size() < 2)
 	{
@@ -12,7 +12,7 @@ void	Commands::cmd_nick(std::vector<Client*> &repertory, Client *client)
 		client->numeric_reply("432", ":Erroneus nickname");
 		return ;
 	}
-	std::vector<Client*>::iterator	it = repertory.begin();
+	vector<Client*>::iterator	it = repertory.begin();
 	while (it != repertory.end())
 	{
 		if (msg[1] == (*it)->getNick())

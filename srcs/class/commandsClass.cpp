@@ -12,7 +12,7 @@ Commands::Commands(Commands const &f)
 	*this = f;
 }
 
-Commands::Commands(std::string str)
+Commands::Commands(string str)
 {
 	SplitString	s(str.c_str());
 	this->msg = s.split(' ');
@@ -41,15 +41,21 @@ void	Commands::init_map()
 	this->cmd["USER"] = &Commands::cmd_user;
 	this->cmd["NICK"] = &Commands::cmd_nick;
 	this->cmd["PASS"] = &Commands::cmd_pass;
-	this->cmd["JOIN"] = 0;
+	this->cmd["JOIN"] = &Commands::cmd_join;
 	this->cmd["PRIVMSG"] = 0;
 	this->cmd["QUIT"] = 0;
+	
+	//oper command
+	this->cmd["KICK"] = 0;
+	this->cmd["MODE"] = 0;
+	this->cmd["INVITE"] = 0;
+	this->cmd["TOPIC"] = 0;
 }
 
 command_ptr	Commands::cmd_match()
 {
 	// for (size_t i = 0; i < this->msg.size(); ++i)
-	// 	std::cout << this->msg[i];
+	// 	cout << this->msg[i];
 	if (msg.size())
 	{
 		if (cmd.find(msg[0]) != cmd.end())

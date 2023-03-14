@@ -1,6 +1,6 @@
 #include "../../incs/irc.hpp"
 
-int	is_valid_nick(std::string nick)
+int	is_valid_nick(string nick)
 {
 	int	i = 0;
 
