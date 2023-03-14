@@ -24,6 +24,7 @@ void	delete_client(vector<Client*>& repertory, int fd)
 {
 	vector<Client*>::iterator	it = repertory.begin();
 
+	cout << "bye bye client" << endl;
 	while (it != repertory.end())
 	{
 		if ((*it)->getFd() == fd)

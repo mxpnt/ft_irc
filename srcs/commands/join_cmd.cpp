@@ -1,13 +1,13 @@
 # include "../../incs/commandsClass.hpp"
 
-Channel* find_channel(vector<Channel>& channels, string name)
+Channel* find_channel(vector<Channel*>& channels, string name)
 {
-    vector<Channel>::iterator  it = channels.begin();
+    vector<Channel*>::iterator  it = channels.begin();
 
     while (it != channels.end())
     {
-        if (!(*it).getName().compare(name))
-            return (&(*it));
+        if (!(*it)->getName().compare(name))
+            return (*it);
         it++;
     }
     return (0);
@@ -31,8 +31,8 @@ void    Commands::cmd_join(vector<Client*> &repertory, Client *client)
     Channel* chan = find_channel(repertory[0]->channels, chan_name);
     if (chan == 0)
     {
-        repertory[0]->channels.push_back(Channel(chan_name, client));
-        chan = &repertory[0]->channels.back();
+        repertory[0]->channels.push_back(new Channel(chan_name, client));
+        chan = repertory[0]->channels.back();
     }
     else if (chan->already_joined(client))
         return ;
@@ -44,6 +44,7 @@ void    Commands::cmd_join(vector<Client*> &repertory, Client *client)
     else
         chan->add_user(client);
 
+    client->channels.push_back(chan);
     chan->multi_reply(client, "JOIN", chan_name, "joined channel");
     
     string str;
