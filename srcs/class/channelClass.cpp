@@ -42,6 +42,14 @@ void    Channel::del_user(Client* user)
             this->user_list.erase(it);
         it++;
     }
+    
+    it = this->invite_list.begin();
+    while (it != this->invite_list.end())
+    {
+        if (*it == user)
+            this->invite_list.erase(it);
+        it++;
+    }
 }
 
 int Channel::is_oper(Client* user)

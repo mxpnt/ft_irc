@@ -22,8 +22,9 @@ public:
 
 	Client	&operator=(Client const &rhs);
 
-	bool			registered;
-	vector<Channel>	channels;
+	bool				registered;
+	vector<Channel*>	channels;
+	vector<Channel*>	invite_recv;
 
 	void	numeric_reply(string numeric, string description);
 	void	reply(Client* sender, string cmd, string dst, string description);
@@ -36,9 +37,9 @@ public:
 	string	getUser() const;
 	string	getNick() const;
 	string	getRealname() const;
-	int			getFd() const;
+	int		getFd() const;
 	string	getServerPassword() const;
-	string getIp() const;
+	string	getIp() const;
 };
 
 ostream &operator<<(ostream &os, Client const &obj);
