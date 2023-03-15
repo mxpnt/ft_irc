@@ -29,6 +29,7 @@ public:
 	void		cmd_pass(vector<Client*> &repertory, Client *client);
 	void		cmd_join(vector<Client*> &repertory, Client *client);
 	void		cmd_quit(vector<Client*> &repertory, Client *client);
+	void		cmd_privmsg(vector<Client*> &repertory, Client *client);
 };
 
 #endif

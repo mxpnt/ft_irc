@@ -15,6 +15,10 @@ SplitString::SplitString(const char *s): string(s)
 {
 }
 
+SplitString::SplitString(string str)
+{
+}
+
 SplitString::~SplitString()
 {
 }
