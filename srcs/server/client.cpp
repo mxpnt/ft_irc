@@ -29,6 +29,11 @@ void	delete_client(vector<Client*>& repertory, int fd)
 	{
 		if ((*it)->getFd() == fd)
 		{
+			while (!(*it)->invite_recv.empty())
+			{
+				(*it)->invite_recv.back()->del_user(*it);
+				(*it)->invite_recv.pop_back();
+			}
 			delete *it;
 			repertory.erase(it);
 			return ;
@@ -74,6 +79,7 @@ void	wait_client(pair<int, string> server_socket_and_ip, string server_password)
 					}
 					try
 					{
+						//cout << "command_manage" << endl;
 						command_manage(repertory, (*it).fd, buff);
 					}
 					catch (exception &e)

@@ -44,6 +44,7 @@ void	Commands::init_map()
 	this->cmd["JOIN"] = &Commands::cmd_join;
 	this->cmd["PRIVMSG"] = 0;
 	this->cmd["PING"] = 0;
+	this->cmd["NOTICE"] = 0;
 	this->cmd["QUIT"] = 0;
 	
 	//oper command

@@ -24,6 +24,7 @@ public:
 
 	bool				registered;
 	vector<Channel*>	channels;
+	vector<Channel*>	invite_recv;
 
 	void	numeric_reply(string numeric, string description);
 	void	reply(Client* sender, string cmd, string dst, string description);

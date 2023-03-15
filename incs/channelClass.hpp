@@ -5,9 +5,9 @@
 
 class Channel {
     private :
-        string name;
-        string topic;
-        char        mode; //'r' -> public, 'i' -> invite only
+        string  name;
+        string  topic;
+        char    mode; //'r' -> public, 'i' -> invite only
         vector<Client*> user_list;
         vector<Client*> invite_list;
 
