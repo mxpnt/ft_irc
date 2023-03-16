@@ -3,7 +3,7 @@
 void register_process(vector<Client*> repertory, Client* client)
 {
     string str;
-    //cout << "|" << client->getRealname() << "|" << client->getNick() << "|" << client->getServerPassword() << "|" << endl;
+
     if (client->getRealname().empty() || !client->getNick().compare("*") || client->getServerPassword().empty())
         return ;
     cout << "starting registration..." << endl;

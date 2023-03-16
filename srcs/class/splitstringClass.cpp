@@ -29,16 +29,31 @@ SplitString	&SplitString::operator=(SplitString const &rhs)
 
 /***** MEMBER FUNCTIONS *****/
 
-vector<string>	&SplitString::split(char delim)
+int	check_delim(string delim, char c)
+{
+	size_t	i = 0;
+
+	while (i < delim.size())
+	{
+		if (delim[i] == c)
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+vector<string>	&SplitString::split(string delim)
 {
 	if (!flds.empty())
 			flds.clear();
+
 	string	work = data();
 	string	buf = "";
 	size_t		i = 0;
+
 	while (i < work.length())
 	{
-		if (work[i] != delim && work[i] != '\r' && work[i] != '\n')
+		if (check_delim(delim, work[i]))
 			buf += work[i];
 		else if (buf.length() > 0)
 		{

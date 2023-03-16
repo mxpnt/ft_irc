@@ -79,7 +79,6 @@ void	wait_client(pair<int, string> server_socket_and_ip, string server_password)
 					}
 					try
 					{
-						//cout << "command_manage" << endl;
 						command_manage(repertory, (*it).fd, buff);
 					}
 					catch (exception &e)
