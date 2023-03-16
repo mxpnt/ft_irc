@@ -43,9 +43,10 @@ void	Commands::init_map()
 	this->cmd["PASS"] = &Commands::cmd_pass;
 	this->cmd["JOIN"] = &Commands::cmd_join;
 	this->cmd["PRIVMSG"] = 0;
-	this->cmd["PING"] = 0;
+	this->cmd["PING"] = &Commands::cmd_ping;
+	this->cmd["PONG"] = &Commands::cmd_ping;
 	this->cmd["NOTICE"] = 0;
-	this->cmd["QUIT"] = 0;
+	this->cmd["QUIT"] = &Commands::cmd_quit;
 	
 	//oper command
 	this->cmd["KICK"] = 0;

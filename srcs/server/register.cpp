@@ -10,7 +10,6 @@ void register_process(vector<Client*> repertory, Client* client)
     if (client->getServerPassword().compare(repertory[0]->getServerPassword()))
     {
         client->numeric_reply("464", ":wrong password");
-        *client << "ERROR :Closing Link: " << client->getIp() << "\n";
         throw exception();
     }
     str = ":Welcome to the " + (string)NETWORK_NAME + "Network, " + client->getNick();

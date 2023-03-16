@@ -28,7 +28,13 @@ public:
 	void		cmd_nick(vector<Client*> &repertory, Client *client);
 	void		cmd_pass(vector<Client*> &repertory, Client *client);
 	void		cmd_join(vector<Client*> &repertory, Client *client);
+	void		cmd_ping(vector<Client*> &repertory, Client *client);
 	void		cmd_quit(vector<Client*> &repertory, Client *client);
+	void		cmd_notice(vector<Client*> &repertory, Client *client);
+	void		cmd_topic(vector<Client*> &repertory, Client *client);
+	void		cmd_invite(vector<Client*> &repertory, Client *client);
+	void		cmd_mode(vector<Client*> &repertory, Client *client);
+	void		cmd_kick(vector<Client*> &repertory, Client *client);
 };
 
 #endif
