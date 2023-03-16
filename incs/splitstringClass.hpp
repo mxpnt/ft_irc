@@ -15,6 +15,7 @@ public:
 	SplitString	&operator=(SplitString const &rhs);
 
 	vector<string> &split(string delim);
+	vector<string> &cmd_split(string delim);
 };
 
 #endif

@@ -15,7 +15,7 @@ Commands::Commands(Commands const &f)
 Commands::Commands(string str)
 {
 	SplitString	s(str.c_str());
-	this->msg = s.split(" ");
+	this->msg = s.cmd_split(" ");
 	
 	init_map();
 }

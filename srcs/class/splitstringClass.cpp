@@ -66,3 +66,36 @@ vector<string>	&SplitString::split(string delim)
 		flds.push_back(buf);
 	return (flds);
 }
+
+vector<string>	&SplitString::cmd_split(string delim)
+{
+	if (!flds.empty())
+			flds.clear();
+
+	string	work = data();
+	string	buf = "";
+	size_t		i = 0;
+	int			x = 1;
+
+	while (i < work.length())
+	{
+		if (x && work[i] == ':')
+		{
+			i++;
+			delim = "";
+			x = 0;
+			continue ;
+		}
+		if (check_delim(delim, work[i]))
+			buf += work[i];
+		else if (buf.length() > 0)
+		{
+			flds.push_back(buf);
+			buf = "";
+		}
+		++i;
+	}
+	if (!buf.empty())
+		flds.push_back(buf);
+	return (flds);
+}

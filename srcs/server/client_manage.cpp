@@ -41,12 +41,13 @@ void    remove_from_chan(Client* client)
     }
 }
 
-void	delete_client(vector<Client*>& repertory, int fd)
+void	delete_client(vector<Client*>& repertory, int fd, int fd_good)
 {
 	vector<Client*>::iterator	it = repertory.begin();
 	Client*	client = find_client(repertory, fd);
 
-    *client << ":" << SERVER_NAME << " ERROR : Connection closed\n";
+    if (fd_good)
+        *client << ":" << SERVER_NAME << " ERROR : Connection closed\n";
     remove_from_chan(client);
 	while (it != repertory.end())
 	{

@@ -39,7 +39,7 @@ void	wait_client(pair<int, string> server_socket_and_ip, string server_password)
 					char	buff[512];
 					if (Recv(buff, sizeof(buff), (*it).fd) == 0)
 					{
-						delete_client(repertory, (*it).fd);
+						delete_client(repertory, (*it).fd, 0);
 						tab_pollfd.erase(it);
 						continue;
 					}
@@ -49,7 +49,7 @@ void	wait_client(pair<int, string> server_socket_and_ip, string server_password)
 					}
 					catch (exception &e)
 					{
-						delete_client(repertory, (*it).fd);
+						delete_client(repertory, (*it).fd, 1);
 						tab_pollfd.erase(it);
 						continue;
 					}
