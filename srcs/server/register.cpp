@@ -3,14 +3,13 @@
 void register_process(vector<Client*> repertory, Client* client)
 {
     string str;
-    //cout << "|" << client->getRealname() << "|" << client->getNick() << "|" << client->getServerPassword() << "|" << endl;
+
     if (client->getRealname().empty() || !client->getNick().compare("*") || client->getServerPassword().empty())
         return ;
     cout << "starting registration..." << endl;
     if (client->getServerPassword().compare(repertory[0]->getServerPassword()))
     {
         client->numeric_reply("464", ":wrong password");
-        *client << "ERROR :Closing Link: " << client->getIp() << "\n";
         throw exception();
     }
     str = ":Welcome to the " + (string)NETWORK_NAME + "Network, " + client->getNick();

@@ -23,7 +23,8 @@ class Channel {
         int     is_oper(Client* user);
         int     already_joined(Client* user);
         int     check_invite(Client* user);
-        void    multi_reply(Client* sender, string cmd, string dst, string description);
+        void    del_invite(Client* user);
+        void    multi_reply(Client* sender, string cmd, string description);
 
         string             getName() const;
         string             getTopic() const;

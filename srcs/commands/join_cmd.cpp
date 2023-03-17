@@ -45,7 +45,7 @@ void    Commands::cmd_join(vector<Client*> &repertory, Client *client)
         chan->add_user(client);
 
     client->channels.push_back(chan);
-    chan->multi_reply(client, "JOIN", chan_name, "joined channel");
+    chan->multi_reply(client, "JOIN", "joined channel");
     
     string str;
     str = chan->getName() + " :" + chan->getTopic();

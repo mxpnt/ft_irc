@@ -39,16 +39,11 @@ void    Channel::del_user(Client* user)
     while (it != this->user_list.end())
     {
         if (*it == user)
+		{
             this->user_list.erase(it);
-        it++;
-    }
-    
-    it = this->invite_list.begin();
-    while (it != this->invite_list.end())
-    {
-        if (*it == user)
-            this->invite_list.erase(it);
-        it++;
+			return ;
+		}
+		it++;
     }
 }
 
@@ -85,13 +80,29 @@ int Channel::check_invite(Client* user)
     return (0);
 }
 
-void    Channel::multi_reply(Client* sender, string cmd, string dst, string description)
+void	Channel::del_invite(Client* user)
+{
+	vector<Client*>::iterator	it;
+
+    it = this->invite_list.begin();
+    while (it != this->invite_list.end())
+    {
+        if (*it == user)
+		{
+            this->invite_list.erase(it);
+			return ;
+		}
+        it++;
+    }
+}
+
+void    Channel::multi_reply(Client* sender, string cmd, string description)
 {
     vector<Client*>::iterator  it = this->user_list.begin();
 
     while (it != this->user_list.end())
     {
-        (*it)->reply(sender, cmd, dst, description);
+        (*it)->reply(sender, cmd, this->getName(), description);
         it++;
     }
 }
