@@ -3,7 +3,7 @@
 Channel::Channel(string name, Client* oper)
 {
     this->name = name;
-    this->topic = "default topic";
+    this->topic = "";
     this->mode = 'r';
     user_list.push_back(oper);
 }
@@ -103,6 +103,17 @@ void    Channel::multi_reply(Client* sender, string cmd, string description)
     while (it != this->user_list.end())
     {
         (*it)->reply(sender, cmd, this->getName(), description);
+        it++;
+    }
+}
+
+void    Channel::multi_serv_reply(string cmd, string description)
+{
+    vector<Client*>::iterator  it = this->user_list.begin();
+
+    while (it != this->user_list.end())
+    {
+        *(*it) << ":" << SERVER_NAME << " " << cmd << " :" << description << "\n";
         it++;
     }
 }

@@ -30,8 +30,8 @@ void    remove_from_chan(Client* client)
     while (!client->channels.empty())
     {
         string str = client->getNick() + " exited the network";
-        client->channels.back()->multi_reply(client, "QUIT", str);
         client->channels.back()->del_user(client);
+        client->channels.back()->multi_reply(client, "QUIT", str);
         client->channels.pop_back();
     }
     while (!client->invite_recv.empty())

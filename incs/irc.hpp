@@ -48,6 +48,9 @@ void    register_process(vector<Client*> repertory, Client* client);
 /***** command_manage.cpp *****/
 void    command_manage(vector<Client*> repertory, int fd, string buff);
 
+/***** join_cmd.cpp *****/
+Channel* find_channel(vector<Channel*>& channels, string name);
+
 /***** is_alphanum.cpp *****/
 int     is_number(string str);
 int     is_alpha(string str);

@@ -52,7 +52,7 @@ void	Commands::init_map()
 	this->cmd["KICK"] = 0;
 	this->cmd["MODE"] = 0;
 	this->cmd["INVITE"] = 0;
-	this->cmd["TOPIC"] = 0;
+	this->cmd["TOPIC"] = &Commands::cmd_topic;
 }
 
 command_ptr	Commands::cmd_match()
