@@ -42,7 +42,7 @@ void	Commands::init_map()
 	this->cmd["NICK"] = &Commands::cmd_nick;
 	this->cmd["PASS"] = &Commands::cmd_pass;
 	this->cmd["JOIN"] = &Commands::cmd_join;
-	this->cmd["PRIVMSG"] = 0;
+	this->cmd["PRIVMSG"] = &Commands::cmd_privmsg;
 	this->cmd["PING"] = &Commands::cmd_ping;
 	this->cmd["PONG"] = &Commands::cmd_ping;
 	this->cmd["NOTICE"] = 0;
