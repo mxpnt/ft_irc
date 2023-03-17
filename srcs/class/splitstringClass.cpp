@@ -17,6 +17,7 @@ SplitString::SplitString(const char *s): string(s)
 
 SplitString::SplitString(string str)
 {
+	(void) str;
 }
 
 SplitString::~SplitString()

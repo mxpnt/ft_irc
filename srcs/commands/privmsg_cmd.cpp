@@ -2,7 +2,7 @@
 
 void	Commands::cmd_privmsg(vector<Client*> &repertory, Client *client)
 {
-	vector<Channel>	chan = client->channels;
+	vector<Channel*>	chan = client->channels;
 	string			msg_to_be_sent;
 	int				msg_begin = msg.size();
 
@@ -32,17 +32,17 @@ void	Commands::cmd_privmsg(vector<Client*> &repertory, Client *client)
 				if ((*it_dest) == (*it_rep)->getNick())
 				{
 					// Envoyer msg
+					// (*it_rep) << msg_to_be_sent << std::endl;
 					find = 1;
-					break;
 				}
 				++it_rep;
 			}
 			if (!find)
 			{
-				vector<Channel>::iterator	it_chan = chan.begin();
+				vector<Channel*>::iterator	it_chan = chan.begin();
 				while (it_chan != chan.end())
 				{
-					if ((*it_dest) == (*it_chan).getName())
+					if ((*it_dest) == (*it_chan)->getName())
 					{
 						// Envoyer msg
 						find = 1;
