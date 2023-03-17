@@ -12,10 +12,18 @@ COMMANDS	=	command_manage.cpp \
 				pass_cmd.cpp \
 				user_cmd.cpp \
 				nick_cmd.cpp \
-				join_cmd.cpp
+				join_cmd.cpp \
+				quit_cmd.cpp \
+				invite_cmd.cpp \
+				kick_cmd.cpp \
+				mode_cmd.cpp \
+				notice_cmd.cpp \
+				ping_cmd.cpp \
+				topic_cmd.cpp
 
 SERVER		= 	server.cpp \
 				client.cpp \
+				client_manage.cpp \
 				register.cpp
 
 CLASS		=	splitstringClass.cpp \

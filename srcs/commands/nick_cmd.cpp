@@ -7,6 +7,8 @@ void	Commands::cmd_nick(vector<Client*> &repertory, Client *client)
 		client->numeric_reply("431", "ERR_NONICKNAMEGIVEN");
 		return ;
 	}
+	else if (msg.size() > 2)
+		cout << "wtf bro" << endl;
 	if (is_valid_nick(msg[1]))
 	{
 		client->numeric_reply("432", ":Erroneus nickname");
