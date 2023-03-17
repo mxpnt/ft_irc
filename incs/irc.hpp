@@ -46,7 +46,7 @@ Client* find_client(vector<Client*> &repertory, int fd);
 void    register_process(vector<Client*> repertory, Client* client);
 
 /***** command_manage.cpp *****/
-void    command_manage(vector<Client*> repertory, int fd, char* buff);
+void    command_manage(vector<Client*> repertory, int fd, string buff);
 
 /***** is_alphanum.cpp *****/
 int     is_number(string str);
