@@ -59,4 +59,5 @@ void	wait_client(pair<int, string> server_socket_and_ip, string server_password)
 			}
 		}
 	}
+	delete repertory[0];
 }

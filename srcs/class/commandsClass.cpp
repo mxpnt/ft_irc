@@ -50,7 +50,7 @@ void	Commands::init_map()
 	
 	//oper command
 	this->cmd["KICK"] = 0;
-	this->cmd["MODE"] = 0;
+	this->cmd["MODE"] = &Commands::cmd_mode;
 	this->cmd["INVITE"] = 0;
 	this->cmd["TOPIC"] = &Commands::cmd_topic;
 }
