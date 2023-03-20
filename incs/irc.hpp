@@ -41,6 +41,7 @@ void    wait_client(pair<int, string> server_socket_and_ip, string server_passwo
 void	delete_client(vector<Client*>& repertory, int fd, int fd_good);
 void	new_client(int server_socket, vector<struct pollfd> &tab_pollfd, vector<Client*> &repertory);
 Client* find_client(vector<Client*> &repertory, int fd);
+Client*	find_client(vector<Client*> &repertory, string name);
 
 /***** register.cpp *****/
 void    register_process(vector<Client*> repertory, Client* client);

@@ -20,6 +20,7 @@ class Channel {
 
         void    add_user(Client* user);
         void    del_user(Client* user);
+		void	add_invite(Client* user);
         void    del_invite(Client* user);
     
         int     is_oper(Client* user);

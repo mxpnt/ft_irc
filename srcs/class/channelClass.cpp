@@ -29,7 +29,8 @@ Channel&    Channel::operator=(const Channel& x)
 
 void    Channel::add_user(Client* user)
 {
-    this->user_list.push_back(user);
+	if (!this->already_joined(user))
+    	this->user_list.push_back(user);
 }
 
 void    Channel::del_user(Client* user)
@@ -78,6 +79,12 @@ int Channel::check_invite(Client* user)
         it++;
     }
     return (0);
+}
+
+void    Channel::add_invite(Client* user)
+{
+	if (!this->check_invite(user))
+    	this->invite_list.push_back(user);
 }
 
 void	Channel::del_invite(Client* user)

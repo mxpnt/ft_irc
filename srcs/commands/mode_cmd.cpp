@@ -22,22 +22,22 @@ void	Commands::cmd_mode(vector<Client*> &repertory, Client *client)
 	}
 	else if (chan->is_oper(client))
 	{
-		if(this->msg[2] == "+r" || this->msg[1] == "-i")
+		if(this->msg[2] == "+r" || this->msg[2] == "-i")
 		{
 			chan->setMode('r');
-			chan->multi_reply(client, "MODE", "-i+r");
+			chan->multi_reply(client, "MODE", this->msg[2]);
 		}
-		if(this->msg[2] == "-r" || this->msg[1] == "+i")
+		else if(this->msg[2] == "-r" || this->msg[2] == "+i")
 		{
 			chan->setMode('i');
-			chan->multi_reply(client, "MODE", "-r+i");
+			chan->multi_reply(client, "MODE", this->msg[2]);
 		}
 		else
 			client->numeric_reply("501", ":unknow mode flag");
 	}
 	else
 	{
-		str = chan->getName() + " :need to be an operator to change the topic";
+		str = chan->getName() + " :need to be an operator to change mode";
 		client->numeric_reply("482", str);
 	}
 }

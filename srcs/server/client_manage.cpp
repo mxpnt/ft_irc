@@ -14,6 +14,20 @@ Client* find_client(vector<Client*> &repertory, int fd)
     return (0);
 }
 
+Client* find_client(vector<Client*> &repertory, string name)
+{
+	vector<Client*>::iterator it = repertory.begin();
+
+    while(it != repertory.end())
+    {
+        if ((*it)->getNick() == name)
+            return ((*it));
+        it++;
+    }
+    cerr << "error find_client: client not found" << endl;
+    return (0);
+}
+
 void	new_client(int server_socket, vector<struct pollfd> &tab_pollfd, vector<Client*> &repertory)
 {
 	struct sockaddr_in	client_addr;
