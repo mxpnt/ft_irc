@@ -30,12 +30,13 @@ class Channel {
         void    multi_reply(Client* sender, string cmd, string description);
         void    multi_serv_reply(string cmd, string description);
     
-        string             getName() const;
-        string             getTopic() const;
-        char               getMode() const;
-        string             getSymbol() const;
-        string             getUsers() const;
-        vector<Client*>    getUserList() const;
+        string			getName() const;
+        string			getTopic() const;
+        char			getMode() const;
+        string			getSymbol() const;
+        string			getUsers() const;
+        vector<Client*>	getUserList() const;
+		int				getUserCount() const;
 
         void    setTopic(string topic);
         void    setMode(char mode);

@@ -169,6 +169,11 @@ vector<Client*>    Channel::getUserList() const
     return (this->user_list);
 }
 
+int	Channel::getUserCount() const
+{
+	return (this->user_list.size());
+}
+
 void    Channel::setTopic(string topic)
 {
     this->topic = topic;
