@@ -7,7 +7,6 @@ class Channel;
 
 class	Client	{
 private:
-	
 	string		user;
 	string		nick;
 	string		realname;
