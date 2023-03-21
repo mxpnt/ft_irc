@@ -31,7 +31,9 @@ public:
 	void		cmd_ping(vector<Client*> &repertory, Client *client);
 	void		cmd_quit(vector<Client*> &repertory, Client *client);
 	void		cmd_privmsg(vector<Client*> &repertory, Client *client);
-	void		cmd_notice(vector<Client*> &repertory, Client *client);
+	void		cmd_part(vector<Client*> &repertory, Client *client);
+	void		cmd_list(vector<Client*> &repertory, Client *client);
+	void		cmd_names(vector<Client*> &repertory, Client *client);
 	void		cmd_topic(vector<Client*> &repertory, Client *client);
 	void		cmd_invite(vector<Client*> &repertory, Client *client);
 	void		cmd_mode(vector<Client*> &repertory, Client *client);

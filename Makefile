@@ -20,7 +20,10 @@ COMMANDS	=	command_manage.cpp \
 				notice_cmd.cpp \
 				ping_cmd.cpp \
 				topic_cmd.cpp \
-				privmsg_cmd.cpp
+				privmsg_cmd.cpp \
+				part_cmd.cpp \
+				names_cmd.cpp \
+				list_cmd.cpp
 
 SERVER		= 	server.cpp \
 				client.cpp \
