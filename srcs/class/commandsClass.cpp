@@ -49,16 +49,14 @@ void	Commands::init_map()
 	this->cmd["QUIT"] = &Commands::cmd_quit;
 	
 	//oper command
-	this->cmd["KICK"] = 0;
-	this->cmd["MODE"] = 0;
-	this->cmd["INVITE"] = 0;
-	this->cmd["TOPIC"] = 0;
+	this->cmd["KICK"] = &Commands::cmd_kick;
+	this->cmd["MODE"] = &Commands::cmd_mode;
+	this->cmd["INVITE"] = &Commands::cmd_invite;
+	this->cmd["TOPIC"] = &Commands::cmd_topic;
 }
 
 command_ptr	Commands::cmd_match()
 {
-	// for (size_t i = 0; i < this->msg.size(); ++i)
-	// 	cout << this->msg[i];
 	if (msg.size())
 	{
 		if (cmd.find(msg[0]) != cmd.end())

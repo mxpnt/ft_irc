@@ -11,7 +11,7 @@ SplitString::SplitString(SplitString const &f): string(f.c_str())
 	*this = f;
 }
 
-SplitString::SplitString(const char *s): string(s)
+SplitString::SplitString(const string s): string(s)
 {
 }
 

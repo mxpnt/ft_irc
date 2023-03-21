@@ -12,6 +12,7 @@ Client::Client(vector<struct pollfd> &tab_pollfd, int socket, string ip)
 	this->nick = "*";
 	this->ip = ip;
 	this->fd = socket;
+	this->buff = "";
 	this->registered = 0;
 }
 
