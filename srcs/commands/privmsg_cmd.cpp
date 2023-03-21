@@ -9,20 +9,16 @@ int	is_oper(string dest)
 
 void	Commands::cmd_privmsg(vector<Client*> &repertory, Client *client)
 {
-	vector<Channel*>	chan = client->channels;
-	string			msg_to_be_sent;
-
 	if (msg.size() < 3)
 	{
 		client->numeric_reply("461", ":need more params");
 		return ;
 	}
-	SplitString		dest(msg[1].c_str()); // c_str() garantee NULL char
-	vector<string>	vDest = dest.split(","); // Vector de tous les destinataires
 
-	msg_to_be_sent = msg[2];
-	vector<string>::iterator	it_dest = vDest.begin();
-	while (it_dest != vDest.end())
+	string						msg_to_be_sent = msg[2];
+	vector<string>				dest = (SplitString(msg[1])).split(","); // Vector de tous les destinataires
+	vector<string>::iterator	it_dest = dest.begin();
+	while (it_dest != dest.end())
 	{
 		Channel	*rchan;
 		Client	*rclient = find_client(repertory, (*it_dest));
