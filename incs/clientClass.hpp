@@ -22,6 +22,7 @@ public:
 
 	Client	&operator=(Client const &rhs);
 
+	string				buff;
 	bool				registered;
 	vector<Channel*>	channels;
 	vector<Channel*>	invite_recv;

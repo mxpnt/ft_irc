@@ -1,5 +1,12 @@
 #include "../../incs/commandsClass.hpp"
 
+int	is_oper(string dest)
+{
+	if (dest[0] == '@')
+		return (1);
+	return (0);
+}
+
 void	Commands::cmd_privmsg(vector<Client*> &repertory, Client *client)
 {
 	vector<Channel*>	chan = client->channels;
@@ -18,7 +25,6 @@ void	Commands::cmd_privmsg(vector<Client*> &repertory, Client *client)
 				msg_to_be_sent.append(" ");
 				msg_to_be_sent.append(msg[i]);
 			}
-			msg_to_be_sent.erase(msg_to_be_sent.begin()); // Erase ':'
 		}
 		vector<string>::iterator	it_dest = vDest.begin();
 		// Gérer les préfix '@', '+', ... ?
@@ -42,6 +48,12 @@ void	Commands::cmd_privmsg(vector<Client*> &repertory, Client *client)
 				vector<Channel*>::iterator	it_chan = repertory[0]->channels.begin();
 				while (it_chan != repertory[0]->channels.end())
 				{
+					std::cout << "===" << (*it_dest) << std::endl;
+					if (is_oper((*it_dest)))
+					{
+						(*it_dest).erase((*it_dest).begin());
+						std::cout << (*it_dest) << " ===== "<< std::endl;
+					}
 					if ((*it_dest) == (*it_chan)->getName())
 					{
 						// Envoyer msg

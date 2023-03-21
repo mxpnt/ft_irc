@@ -48,9 +48,16 @@ void    Commands::cmd_join(vector<Client*> &repertory, Client *client)
     chan->multi_reply(client, "JOIN", "joined channel");
     
     string str;
-    str = chan->getName() + " :" + chan->getTopic();
-    client->numeric_reply("332", str);
-    
+    if (chan->getTopic().empty())
+    {
+    	str = chan->getName() + " :no topic set";
+    	client->numeric_reply("331", str);
+	}
+	else
+	{
+		str = chan->getName() + " :" + chan->getTopic();
+    	client->numeric_reply("332", str);
+	}
     str = chan->getSymbol() + " " + chan->getName() + " :" + chan->getUsers();
     client->numeric_reply("353", str);
     
