@@ -45,7 +45,7 @@ void	Commands::init_map()
 	this->cmd["PRIVMSG"] = &Commands::cmd_privmsg;
 	this->cmd["PING"] = &Commands::cmd_ping;
 	this->cmd["PONG"] = &Commands::cmd_ping;
-	this->cmd["NOTICE"] = 0;
+	this->cmd["NOTICE"] = &Commands::cmd_privmsg;
 	this->cmd["QUIT"] = &Commands::cmd_quit;
 	
 	//oper command

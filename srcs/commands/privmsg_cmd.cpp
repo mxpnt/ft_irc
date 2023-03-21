@@ -12,65 +12,41 @@ void	Commands::cmd_privmsg(vector<Client*> &repertory, Client *client)
 	vector<Channel*>	chan = client->channels;
 	string			msg_to_be_sent;
 
-	if (msg.size() > 1)
+	if (msg.size() < 3)
 	{
-		SplitString		dest(msg[1].c_str()); // c_str() garantee NULL char
-		vector<string>	vDest = dest.split(","); // Vector de tous les destinataires
+		client->numeric_reply("461", ":need more params");
+		return ;
+	}
+	SplitString		dest(msg[1].c_str()); // c_str() garantee NULL char
+	vector<string>	vDest = dest.split(","); // Vector de tous les destinataires
 
-		if (msg.size() > 2)
+	msg_to_be_sent = msg[2];
+	vector<string>::iterator	it_dest = vDest.begin();
+	while (it_dest != vDest.end())
+	{
+		Channel	*rchan;
+		Client	*rclient = find_client(repertory, (*it_dest));
+		if (is_oper((*it_dest)))
 		{
-			msg_to_be_sent = msg[2];
-			for (size_t i = 3; i < msg.size(); ++i)
-			{
-				msg_to_be_sent.append(" ");
-				msg_to_be_sent.append(msg[i]);
-			}
+			(*it_dest).erase((*it_dest).begin());
+			rchan = find_channel(repertory[0]->channels, (*it_dest));
+			rclient = rchan->getUserList().front();
 		}
-		vector<string>::iterator	it_dest = vDest.begin();
-		// Gérer les préfix '@', '+', ... ?
-		while (it_dest != vDest.end())
+		else
+			rchan = find_channel(repertory[0]->channels, (*it_dest));
+
+		if (rclient)
+			rclient->reply(client, msg[0], rclient->getNick(), msg_to_be_sent);
+		else if (rchan)
 		{
-			vector<Client*>::iterator	it_rep = repertory.begin();
-			int	find = 0;
-			while (it_rep != repertory.end())
-			{
-				if ((*it_dest) == (*it_rep)->getNick())
-				{
-					// Envoyer msg
-					(*it_rep)->reply(client, "PRIVMSG", (*it_rep)->getNick(), msg_to_be_sent);
-					find = 1;
-					break ;
-				}
-				++it_rep;
-			}
-			if (!find)
-			{
-				vector<Channel*>::iterator	it_chan = repertory[0]->channels.begin();
-				while (it_chan != repertory[0]->channels.end())
-				{
-					std::cout << "===" << (*it_dest) << std::endl;
-					if (is_oper((*it_dest)))
-					{
-						(*it_dest).erase((*it_dest).begin());
-						std::cout << (*it_dest) << " ===== "<< std::endl;
-					}
-					if ((*it_dest) == (*it_chan)->getName())
-					{
-						// Envoyer msg
-						(*it_chan)->multi_reply(client, "PRIVMSG", msg_to_be_sent);
-						find = 1;
-						break ;
-					}
-					++it_chan;
-				}
-				// Faire qqchose si pas trouvé ?
-				if (!find)
-				{
-					// Nouvelle fonction numeric_reply <client> <nickname/channel> ... ?
-					client->numeric_reply("402", ":No such nick/channel");
-				}
-			}
-			++it_dest;
+			if (rchan->already_joined(client))
+				rchan->multi_reply(client, msg[0], msg_to_be_sent);
+			else
+				client->numeric_reply("404", ":Cannot send to channel");
 		}
+		else
+			client->numeric_reply("402", ":No such nick/channel");
+		// str dans description
+		++it_dest;
 	}
 }

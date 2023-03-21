@@ -15,11 +15,6 @@ SplitString::SplitString(const string s): string(s)
 {
 }
 
-SplitString::SplitString(string str)
-{
-	(void) str;
-}
-
 SplitString::~SplitString()
 {
 }
