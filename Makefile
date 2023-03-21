@@ -19,7 +19,8 @@ COMMANDS	=	command_manage.cpp \
 				mode_cmd.cpp \
 				notice_cmd.cpp \
 				ping_cmd.cpp \
-				topic_cmd.cpp
+				topic_cmd.cpp \
+				privmsg_cmd.cpp
 
 SERVER		= 	server.cpp \
 				client.cpp \
