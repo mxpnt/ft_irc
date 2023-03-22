@@ -13,6 +13,19 @@ Channel* find_channel(vector<Channel*>& channels, string name)
     return (0);
 }
 
+vector<string> create_chans_name_tab(vector<Channel*>& chans)
+{
+	vector<string>				names;
+	vector<Channel*>::iterator	it = chans.begin();
+
+	while (it != chans.end())
+	{
+		names.push_back((*it)->getName());
+		it++;
+	}
+	return (names);
+}
+
 void    Commands::cmd_join(vector<Client*> &repertory, Client *client)
 {
     if (this->msg.size() < 2)
