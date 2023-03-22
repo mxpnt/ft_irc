@@ -35,8 +35,7 @@ CLASS		=	splitstringClass.cpp \
 				clientClass.cpp \
 				channelClass.cpp
 
-UTILS		=	is_alphanum.cpp \
-				is_valid_nick.cpp
+UTILS		=	is_alphanum.cpp
 
 SRCS		=	${SRC} \
 				${addprefix commands/, ${COMMANDS}} \

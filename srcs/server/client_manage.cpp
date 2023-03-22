@@ -10,7 +10,6 @@ Client* find_client(vector<Client*> &repertory, int fd)
             return ((*it));
         it++;
     }
-    cerr << "error find_client: client not found" << endl;
     return (0);
 }
 
@@ -24,7 +23,6 @@ Client* find_client(vector<Client*> &repertory, string name)
             return ((*it));
         it++;
     }
-    cerr << "error find_client: client not found" << endl;
     return (0);
 }
 
@@ -67,12 +65,11 @@ void	delete_client(vector<Client*>& repertory, int fd, int fd_good)
 	{
 		if (*it == client)
 		{
-	        cout << "bye bye " << client->getNick() << endl;
+	        cout << client->getNick() << " disconnected" << endl;
 			delete *it;
 			repertory.erase(it);
 			return ;
 		}
 		it++;
 	}
-	cout << "delete_client() error: client fd not found" << endl;
 }
