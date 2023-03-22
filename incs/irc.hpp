@@ -32,7 +32,7 @@ using namespace std;
 # include "channelClass.hpp"
 
 /***** server.cpp *****/
-pair<int, string>    create_server(int port);
+pair<int, string>	create_server(int port);
 
 /***** client.cpp *****/
 void    wait_client(pair<int, string> server_socket_and_ip, string server_password);
@@ -50,7 +50,8 @@ void    register_process(vector<Client*> repertory, Client* client);
 void    command_manage(vector<Client*> repertory, int fd, string buff);
 
 /***** join_cmd.cpp *****/
-Channel* find_channel(vector<Channel*>& channels, string name);
+Channel* 		find_channel(vector<Channel*>& channels, string name);
+vector<string>	create_chans_name_tab(vector<Channel*>& all_chans);
 
 /***** is_alphanum.cpp *****/
 int     is_number(string str);
