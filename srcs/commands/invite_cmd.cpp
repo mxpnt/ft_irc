@@ -8,12 +8,12 @@ void		Commands::cmd_invite(vector<Client*> &repertory, Client *client)
 		return ;
     }
 
-    Channel*	chan = find_channel(repertory[0]->channels, this->msg[1]);
-	Client*		client_to_invite = find_client(repertory, this->msg[2]);
+    Channel*	chan = find_channel(repertory[0]->channels, this->msg[2]);
+	Client*		client_to_invite = find_client(repertory, this->msg[1]);
 	string		str;
     if (!chan)
     {
-        str = this->msg[1] + " :no such channel";
+        str = this->msg[2] + " :no such channel";
         client->numeric_reply("403", str);
     }
 	else if (!chan->already_joined(client))
@@ -28,7 +28,7 @@ void		Commands::cmd_invite(vector<Client*> &repertory, Client *client)
 	}
 	else if (chan->already_joined(client_to_invite))
 	{
-		str = this->msg[2] + " " + chan->getName() + " :user already on channel";
+		str = chan->getName() + " " + this->msg[1] + " :user already on channel";
 		client->numeric_reply("444", str);
 	}
 	else
