@@ -6,6 +6,9 @@
 # include <sys/ioctl.h>
 # include <fcntl.h>
 # include <poll.h>
+# include <sys/types.h>
+# include <sys/socket.h>
+# include <arpa/inet.h>
 
 class	Bot	{
 private:
@@ -30,6 +33,7 @@ public:
 	size_t	Recv(char* buffer, size_t size, int socket);
 	void	launch();
 	void	run();
+	void	message_manage(std::string msg);
 
 	bool	isRegistered;
 };

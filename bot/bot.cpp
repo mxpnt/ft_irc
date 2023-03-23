@@ -13,7 +13,7 @@ Bot::Bot(std::string addr, long port, std::string pwd)
 	this->password = pwd;
 
 	this->user = "Bot";
-	this->nick = "Bot_Shady";
+	this->nick = "BotShady";
 	this->realname = "Bot";
 
 	this->isRegistered = 0;
@@ -75,7 +75,7 @@ void	Bot::launch()
 	}
 	this->addr.sin_family = AF_INET;
 	this->addr.sin_port = htons(port);
-	this->addr.sin_addr.s_addr = htonl(INADDR_ANY);
+	this->addr.sin_addr.s_addr = inet_addr(server_addr.c_str());
 	pollfd.events = POLLIN | POLLOUT;
 	if (fcntl(this->pollfd.fd, F_SETFL, O_NONBLOCK) < 0) {
 		perror("fcntl()");
@@ -105,12 +105,38 @@ void	Bot::run()
 			else if (pollfd.revents & POLLIN)
 			{
 				char	buff[512];
-				if (Recv(buff, sizeof(buff), pollfd.fd) == 0)
+				int		n;
+				n = Recv(buff, sizeof(buff), pollfd.fd);
+				if (n == 0)
 				{
 					std::cerr << "Connection closed" << std::endl;
 					break ;
 				}
+				else if  (n == -1)
+				{
+					perror("recv()");
+					break ;
+				}
+				else
+					message_manage(buff);
 			}
 		}
 	}
+}
+
+void	Bot::message_manage(std::string msg)
+{
+	std::string message = msg.substr(0, msg.size() - 2);
+	std::string commandName = message.substr(message.find_first_of(" ") + 1);
+	std::string commandArg;
+	if (commandName.find(":") != std::string::npos)
+		commandArg = commandName.substr(commandName.find_first_of(":") + 1);
+	else
+		commandArg = commandName.substr(commandName.find_first_of(" ") + 1);
+	commandName = commandName.substr(0, commandName.find_first_of(" "));
+	std::string commandSender = message.substr(1, message.find_first_of("!") -1);
+
+	std::cout << commandName << std::endl;
+	std::cout << commandArg << std::endl;
+	std::cout << commandSender << std::endl;
 }
