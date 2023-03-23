@@ -100,7 +100,7 @@ void	Bot::run()
 				sendMsg(line);
 				line = "PASS " + password + "\r\n";
 				sendMsg(line);
-				isRegistered = 1;
+				this->isRegistered = 1;
 			}
 			else if (pollfd.revents & POLLIN)
 			{
@@ -126,7 +126,7 @@ void	Bot::run()
 
 void	Bot::message_manage(std::string msg)
 {
-	std::string message = msg.substr(0, msg.size() - 2);
+	std::string message = msg.substr(0, msg.size());
 	std::string commandName = message.substr(message.find_first_of(" ") + 1);
 	std::string commandArg;
 	if (commandName.find(":") != std::string::npos)
@@ -134,7 +134,9 @@ void	Bot::message_manage(std::string msg)
 	else
 		commandArg = commandName.substr(commandName.find_first_of(" ") + 1);
 	commandName = commandName.substr(0, commandName.find_first_of(" "));
-	std::string commandSender = message.substr(1, message.find_first_of("!") -1);
+	commandArg = commandArg.substr(0, commandArg.size() - 1);
+	// std::cout << "message -> " << message;
+	std::string commandSender = message.substr(0, message.find_first_of("!"));
 
 	std::cout << commandName << std::endl;
 	std::cout << commandArg << std::endl;
