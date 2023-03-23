@@ -118,7 +118,10 @@ void	Bot::run()
 					break ;
 				}
 				else
+				{
+					// std::cout << buff;
 					message_manage(buff);
+				}
 			}
 		}
 	}
@@ -138,7 +141,18 @@ void	Bot::message_manage(std::string msg)
 	// std::cout << "message -> " << message;
 	std::string commandSender = message.substr(0, message.find_first_of("!"));
 
-	std::cout << commandName << std::endl;
-	std::cout << commandArg << std::endl;
-	std::cout << commandSender << std::endl;
+	// std::cout << commandName << std::endl;
+	// std::cout << commandArg << std::endl;
+	// std::cout << commandSender << std::endl;
+	
+	if (commandName == "PRIVMSG")
+	{
+		message = "PRIVMSG " + commandSender + " :phrase random\n";
+		sendMsg(message);
+	}
+	else if (commandName == "INVITE")
+	{
+		message = "JOIN " + commandArg + "\r\n";
+		sendMsg(message);
+	}
 }
