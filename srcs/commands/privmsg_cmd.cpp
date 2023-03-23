@@ -15,34 +15,41 @@ void	Commands::cmd_privmsg(vector<Client*> &repertory, Client *client)
 		return ;
 	}
 
-	string						msg_to_be_sent = msg[2];
+	string						str;
 	vector<string>				dest = (SplitString(msg[1])).split(","); // Vector de tous les destinataires
 	vector<string>::iterator	it_dest = dest.begin();
+	Channel	*rchan;
+	Client	*rclient; 
 	while (it_dest != dest.end())
 	{
-		Channel	*rchan;
-		Client	*rclient = find_client(repertory, (*it_dest));
+		rclient = find_client(repertory, (*it_dest));
 		if (is_oper((*it_dest)))
 		{
 			(*it_dest).erase((*it_dest).begin());
 			rchan = find_channel(repertory[0]->channels, (*it_dest));
-			rclient = rchan->getUserList().front();
+			if (rchan)
+				rclient = rchan->getUserList().front();
 		}
 		else
 			rchan = find_channel(repertory[0]->channels, (*it_dest));
 
 		if (rclient)
-			rclient->reply(client, msg[0], rclient->getNick(), msg_to_be_sent);
+			rclient->reply(client, msg[0], rclient->getNick(), msg[2]);
 		else if (rchan)
 		{
 			if (rchan->already_joined(client))
-				rchan->multi_reply(client, msg[0], msg_to_be_sent);
+				rchan->multi_privmsg_reply(client, msg[0], msg[2]);
 			else
-				client->numeric_reply("404", ":Cannot send to channel");
+			{
+				str = (*it_dest) + " :Cannot send to channel";
+				client->numeric_reply("404", str);
+			}
 		}
 		else
-			client->numeric_reply("402", ":No such nick/channel");
-		// str dans description
+		{
+			str = (*it_dest) + " :No such nick/channel";
+			client->numeric_reply("402", str);
+		}
 		++it_dest;
 	}
 }

@@ -109,7 +109,19 @@ void    Channel::multi_reply(Client* sender, string cmd, string description)
 
     while (it != this->user_list.end())
     {
-        (*it)->reply(sender, cmd, this->getName(), description);
+		(*it)->reply(sender, cmd, this->getName(), description);
+        it++;
+    }
+}
+
+void    Channel::multi_privmsg_reply(Client* sender, string cmd, string description)
+{
+    vector<Client*>::iterator  it = this->user_list.begin();
+
+    while (it != this->user_list.end())
+    {
+		if ((*it) != sender)
+        	(*it)->reply(sender, cmd, this->getName(), description);
         it++;
     }
 }

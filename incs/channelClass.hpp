@@ -28,6 +28,7 @@ class Channel {
         int     check_invite(Client* user);
     
         void    multi_reply(Client* sender, string cmd, string description);
+        void    multi_privmsg_reply(Client* sender, string cmd, string description);
         void    multi_serv_reply(string cmd, string description);
     
         string			getName() const;

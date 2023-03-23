@@ -1,5 +1,19 @@
 #include "../../incs/commandsClass.hpp"
 
+int	is_valid_nick(string nick)
+{
+	int	i = 0;
+
+	while (nick[i])
+	{
+		if (nick[i] == '@' || nick[i] == '_' || nick[i] == '|'
+		|| nick[i] == '\\' || nick[i] == '/')
+			return (1);
+		++i;
+	}
+	return (0);
+}
+
 void	Commands::cmd_nick(vector<Client*> &repertory, Client *client)
 {
 	if (msg.size() < 2)

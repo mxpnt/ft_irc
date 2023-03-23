@@ -7,20 +7,14 @@
 # define USERLEN 10
 
 # include <iostream>
-# include <sys/types.h>
-# include <sys/socket.h>
 # include <stdio.h>
 # include <errno.h>
-# include <string>
 # include <unistd.h>
 # include <stdlib.h>
-# include <netinet/in.h>
-# include <sys/ioctl.h>
 # include <fcntl.h>
 # include <poll.h>
 # include <vector>
 # include <map>
-# include <utility>
 # include <arpa/inet.h>
 # include <sstream>
 
@@ -57,9 +51,6 @@ vector<string>	create_chans_name_tab(vector<Channel*>& all_chans);
 int     is_number(string str);
 int     is_alpha(string str);
 int     is_alphanum(string str);
-
-/***** is_valid_nick.cpp *****/
-int		is_valid_nick(string nick);
 
 template < typename T > string to_string( const T& n )
 {
