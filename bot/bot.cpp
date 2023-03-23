@@ -100,7 +100,7 @@ void	Bot::run()
 				sendMsg(line);
 				line = "PASS " + password + "\r\n";
 				sendMsg(line);
-				isRegistered = 1;
+				this->isRegistered = 1;
 			}
 			else if (pollfd.revents & POLLIN)
 			{
@@ -118,7 +118,10 @@ void	Bot::run()
 					break ;
 				}
 				else
+				{
+					// std::cout << buff;
 					message_manage(buff);
+				}
 			}
 		}
 	}
@@ -126,7 +129,7 @@ void	Bot::run()
 
 void	Bot::message_manage(std::string msg)
 {
-	std::string message = msg.substr(0, msg.size() - 2);
+	std::string message = msg.substr(0, msg.size());
 	std::string commandName = message.substr(message.find_first_of(" ") + 1);
 	std::string commandArg;
 	if (commandName.find(":") != std::string::npos)
@@ -134,9 +137,22 @@ void	Bot::message_manage(std::string msg)
 	else
 		commandArg = commandName.substr(commandName.find_first_of(" ") + 1);
 	commandName = commandName.substr(0, commandName.find_first_of(" "));
-	std::string commandSender = message.substr(1, message.find_first_of("!") -1);
+	commandArg = commandArg.substr(0, commandArg.size() - 1);
+	// std::cout << "message -> " << message;
+	std::string commandSender = message.substr(0, message.find_first_of("!"));
 
-	std::cout << commandName << std::endl;
-	std::cout << commandArg << std::endl;
-	std::cout << commandSender << std::endl;
+	// std::cout << commandName << std::endl;
+	// std::cout << commandArg << std::endl;
+	// std::cout << commandSender << std::endl;
+	
+	if (commandName == "PRIVMSG")
+	{
+		message = "PRIVMSG " + commandSender + " :phrase random\n";
+		sendMsg(message);
+	}
+	else if (commandName == "INVITE")
+	{
+		message = "JOIN " + commandArg + "\r\n";
+		sendMsg(message);
+	}
 }
