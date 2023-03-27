@@ -9,6 +9,15 @@
 # include <sys/types.h>
 # include <sys/socket.h>
 # include <arpa/inet.h>
+# include <fstream>
+# include <sstream>
+# include <string>
+# include <vector>
+// # include <stdio.h>
+# include <stdlib.h>
+# include <time.h>
+
+# include "splitstringClass.hpp"
 
 class	Bot	{
 private:
@@ -29,13 +38,15 @@ public:
 
 	Bot	&operator=(Bot const &rhs);
 
-	void	sendMsg(std::string msg) const;
-	size_t	Recv(char* buffer, size_t size, int socket);
-	void	launch();
-	void	run();
-	void	message_manage(std::string msg);
+	void		sendMsg(std::string msg) const;
+	size_t		Recv(char* buffer, size_t size, int socket);
+	void		launch();
+	void		run();
+	void		message_manage(std::string msg);
+	std::string	randomMsg();
 
 	bool	isRegistered;
+	std::string	buffer;
 };
 
 #endif

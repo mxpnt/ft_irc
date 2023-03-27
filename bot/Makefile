@@ -1,9 +1,11 @@
 NAME		=	botirc
 
-INC			=	bot.hpp
+INC			=	bot.hpp \
+				splitstringClass.hpp
 
 SRCS		=	main.cpp \
-				bot.cpp
+				bot.cpp \
+				splitstringClass.cpp
 
 OBJS		=	${addprefix objs/, ${SRCS:.cpp=.o}}
 

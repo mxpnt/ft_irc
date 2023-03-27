@@ -104,7 +104,7 @@ void	Bot::run()
 			}
 			else if (pollfd.revents & POLLIN)
 			{
-				char	buff[512];
+				char	buff[1024];
 				int		n;
 				n = Recv(buff, sizeof(buff), pollfd.fd);
 				if (n == 0)
@@ -118,10 +118,7 @@ void	Bot::run()
 					break ;
 				}
 				else
-				{
-					// std::cout << buff;
 					message_manage(buff);
-				}
 			}
 		}
 	}
@@ -129,7 +126,12 @@ void	Bot::run()
 
 void	Bot::message_manage(std::string msg)
 {
-	std::string message = msg.substr(0, msg.size());
+
+	this->buffer.append(msg);
+	if (buffer.find("\n") == std::string::npos)
+		return ;
+
+	std::string message = buffer.substr(0, buffer.size());
 	std::string commandName = message.substr(message.find_first_of(" ") + 1);
 	std::string commandArg;
 	if (commandName.find(":") != std::string::npos)
@@ -138,21 +140,55 @@ void	Bot::message_manage(std::string msg)
 		commandArg = commandName.substr(commandName.find_first_of(" ") + 1);
 	commandName = commandName.substr(0, commandName.find_first_of(" "));
 	commandArg = commandArg.substr(0, commandArg.size() - 1);
-	// std::cout << "message -> " << message;
-	std::string commandSender = message.substr(0, message.find_first_of("!"));
-
-	// std::cout << commandName << std::endl;
-	// std::cout << commandArg << std::endl;
-	// std::cout << commandSender << std::endl;
+	std::string commandSender = message.substr(1, message.find_first_of("!") - 1);
 	
 	if (commandName == "PRIVMSG")
 	{
-		message = "PRIVMSG " + commandSender + " :phrase random\n";
+		std::string commandChan = "";
+
+		if (buffer.find('#') != std::string::npos)
+		{
+			commandChan = buffer.substr(buffer.find('#'));
+			commandChan = commandChan.substr(0, commandChan.find_first_of(" "));
+		}
+		if (commandChan != "")
+			message = "PRIVMSG " + commandChan + " :" + randomMsg() + "\r\n";
+		else
+			message = "PRIVMSG " + commandSender + " :" + randomMsg() + "\r\n";
 		sendMsg(message);
 	}
 	else if (commandName == "INVITE")
 	{
 		message = "JOIN " + commandArg + "\r\n";
 		sendMsg(message);
+		message = "PRIVMSG " + commandArg + " :" + randomMsg() + "\r\n";
+		sendMsg(message);
 	}
+	this->buffer = "";
+}
+
+std::string	Bot::randomMsg()
+{
+	std::ifstream		ifs;
+	std::stringstream	buf;
+	std::string			bufStr;
+
+	srand(time(NULL));
+	ifs.open("ring.txt");
+	if (ifs.fail())
+	{
+		ifs.close();
+		return ("IFS OPEN FAILED RIP");
+	}
+	buf << ifs.rdbuf();
+	ifs.close();
+	bufStr = buf.str();
+	std::vector<std::string> bufSplit = SplitString(bufStr).split("\r\n");
+	size_t	bufLen = bufSplit.size();
+	if (!bufLen)
+		return ("NO RANDOM PHRASE FOR YOU");
+	size_t	index = (rand() / 100) % bufLen;
+	if (index == bufLen)
+		index -= 1;
+	return (bufSplit[index]);
 }
