@@ -58,6 +58,9 @@ objs/%.o:		srcs/%.cpp ${INC} Makefile
 ${NAME}:		${OBJS} ${INC} Makefile
 				${CXX} ${CXXFLAGS} -o ${NAME} ${OBJS}
 
+bot:
+				make -C bot/
+
 clean:
 				rm -rf objs/
 

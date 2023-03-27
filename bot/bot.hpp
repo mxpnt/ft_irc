@@ -28,7 +28,7 @@ private:
 	std::string			user;
 	std::string			nick;
 	std::string			realname;
-	pollfd				pollfd;
+	struct pollfd				pollfd;
 	struct sockaddr_in	addr;
 public:
 	Bot();

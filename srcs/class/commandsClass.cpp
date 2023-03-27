@@ -56,6 +56,8 @@ void	Commands::init_map()
 	this->cmd["MODE"] = &Commands::cmd_mode;
 	this->cmd["INVITE"] = &Commands::cmd_invite;
 	this->cmd["TOPIC"] = &Commands::cmd_topic;
+
+	this->cmd["CAP"] = 0;
 }
 
 command_ptr	Commands::cmd_match()

@@ -26,6 +26,19 @@ vector<string> create_chans_name_tab(vector<Channel*>& chans)
 	return (names);
 }
 
+void	leave_chans(Client* client)
+{
+	string	str;
+
+	while (!client->channels.empty())
+	{
+		str = client->getNick() + " is leaving the channel";
+		client->channels.back()->multi_reply(client, "PART", str);
+		client->channels.back()->del_user(client);
+		client->channels.pop_back();
+	}
+}
+
 void    Commands::cmd_join(vector<Client*> &repertory, Client *client)
 {
     if (this->msg.size() < 2)
@@ -35,6 +48,11 @@ void    Commands::cmd_join(vector<Client*> &repertory, Client *client)
     }
  
     string chan_name = this->msg[1];
+	if (this->msg[1] == "0")
+	{
+		leave_chans(client);
+		return ;
+	}
     if (this->msg.size() > 2 || chan_name.at(0) != '#' || !is_alpha(&(chan_name[1])))
     {
         client->numeric_reply("476", ":bad chan name, only letters prefixed by a #");
