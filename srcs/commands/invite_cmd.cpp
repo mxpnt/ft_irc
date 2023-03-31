@@ -16,6 +16,11 @@ void		Commands::cmd_invite(vector<Client*> &repertory, Client *client)
         str = this->msg[2] + " :no such channel";
         client->numeric_reply("403", str);
     }
+	else if (!client_to_invite)
+	{
+		str = this->msg[1] + " :No such nick/channel";
+		client->numeric_reply("402", str);
+	}
 	else if (!chan->already_joined(client))
 	{
 		str = chan->getName() + " :not on channel";
