@@ -16,7 +16,6 @@ pair<int, string>	create_server(int port)
 	server_addr.sin_family = AF_INET;
 	server_addr.sin_port = htons(port);
 	server_addr.sin_addr.s_addr = htonl(INADDR_ANY);
-	// pas le droit a fcntl
 	rc = fcntl(listen_sd, F_SETFL, O_NONBLOCK);
 	if (rc < 0)
 		perror("fcntl()");
