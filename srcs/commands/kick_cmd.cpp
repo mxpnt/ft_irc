@@ -16,7 +16,7 @@ void		Commands::cmd_kick(vector<Client*> &repertory, Client *client)
         str = this->msg[1] + " :no such channel";
         client->numeric_reply("403", str);
     }
-	else if (!client_to_invite)
+	else if (!client_to_kick)
 	{
 		str = this->msg[2] + " :No such nick/channel";
 		client->numeric_reply("402", str);
